@@ -1,0 +1,33 @@
+{
+    "apps": [
+        {
+            "name": "Ice",
+            "script": "./start.js",
+            "instances": 2,
+            "env": {
+                "COMMON_VARIABLE": "true"
+            },
+            "env_production": {
+                "NODE_ENV": "production"
+            }
+        }
+    ],
+    "deploy": {
+        "production": {
+            "user": "root",
+            "host": [
+                "47.92.154.146"
+            ],
+            "port": "22",
+            "ref": "origin/master",
+            "repo": "git@git.coding.net:szy0syz/ice.git",
+            "path": "/home/wwwroot/vue-ice/production",
+            "ssh_options": "StrictHostKeyChecking=no",
+            "post-deploy" : "npm install && pm2 startOrRestart ecosystem.json --env production",
+            "pre-delpoy-local": "echo 'Deploy Done!'",
+            "env": {
+                "NODE_ENV": "production"
+            }
+        }
+    }
+}
