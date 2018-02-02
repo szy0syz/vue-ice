@@ -20,7 +20,6 @@ export const router = app => {
     } else {
       ctx.body = 'Failed'
     }
-    
   })
 
   // router.post('/wechat-hear', (ctx, next) => {
