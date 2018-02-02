@@ -5,7 +5,7 @@ import config from '../config'
 export const router = app => {
   const router = new Router()
 
-  router.ger('/wechat-hear', (ctx, next) => {
+  router.get('/wechat-hear', (ctx, next) => {
     const token = config.wechat.token
     const {
       signature,
