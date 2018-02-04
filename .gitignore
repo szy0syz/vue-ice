@@ -11,7 +11,7 @@ npm-debug.log
 dist
 
 # System
-.DS.Store
+*/.DS.Store
 
 # Build
 build
