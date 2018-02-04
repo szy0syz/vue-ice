@@ -17,6 +17,7 @@
     "cross-env": "^5.0.1",
     "koa": "^2.4.1",
     "koa-router": "^7.4.0",
+    "lodash": "^4.17.5",
     "nuxt": "latest",
     "ramda": "^0.25.0",
     "request": "^2.83.0",
