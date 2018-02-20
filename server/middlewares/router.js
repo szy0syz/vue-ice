@@ -1,6 +1,7 @@
 import Router from 'koa-router'
-import sha1 from 'sha1'
 import config from '../config'
+import reply from '../wechat/reply'
+import wechatMiddle from '../wechat-lib/middleware'
 
 export const router = app => {
   const router = new Router()
@@ -9,7 +10,7 @@ export const router = app => {
   // 竟然说是暂时不需要！
 
   // opts 存微信公众号的key、id等，reply回复策略
-  router.all('/wechat-hear', wechatMiddle(opts, reply))
+  router.all('/wechat-hear', wechatMiddle(config.wechat, reply))
 
   app
     .use(router.routes())

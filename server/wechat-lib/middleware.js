@@ -1,7 +1,11 @@
 // 微信消息中间件
+import sha1 from 'sha1'
+import getRawBody from 'raw-body'
+import * as util from './util'
+
 export default function (opts, reply) {
   return async function wechatMiddle(ctx, next) {
-    const token = config.wechat.token
+    const token = opts.token
     const {
       signature,
       nonce,
@@ -31,19 +35,23 @@ export default function (opts, reply) {
       })
       // 解析xml数据包
       const content = await util.parseXML(data)
-      const message = util.formatMessage(content)
+      //const message = util.formatMessage(content.xml)
+      console.log(content)
+
       // 后续中间件可以访问到这个解析过的对象
-      ctx.weixin = message
+      ctx.weixin = {} //message
       // ！让reply在内部执行且在执行时能调用到当前上下文ctx
-      await reply.call(ctx, next)
+      await reply.apply(ctx, [ctx, next])
 
       const replyBody = ctx.body
       const msg = ctx.weixin
-      const xml = util.tpl(reply, msg)
-
+      //const xml = util.tpl(replyBody, msg)
+      console.log(replyBody)
       ctx.status = 200
       ctx.type = 'application/xml'
-      ctx.body = xml
+      const tmp = `<xml> <ToUserName>< ![CDATA[${content.xml.FromUserName[0]}] ]></ToUserName> <FromUserName>< ![CDATA[${content.xml.ToUserName[0]}] ]></FromUserName> <CreateTime>1519144761</CreateTime> <MsgType>< ![CDATA[text] ]></MsgType> <Content>< ![CDATA[${replyBody}] ]></Content> </xml>`
+      console.log(tmp)
+      ctx.body = tmp
     }
   }
-}
+}[0]
