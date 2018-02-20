@@ -47,6 +47,7 @@ TokenSchema.statics = {
     let token = await this.findOne({
       name: 'access_token'
     }).exec()
+    // 从服务器拿到token后保存到数据库
     if (token) {
       token.token = data.access_token
       token.expires_in = data.expires_in
@@ -58,6 +59,12 @@ TokenSchema.statics = {
       })
     }
 
+    try {
+
+    } catch (e) {
+      console.log('存储AccessToken失败!!!')
+      console.error(e)
+    }
     await token.save()
 
     return data

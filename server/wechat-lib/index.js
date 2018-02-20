@@ -9,7 +9,6 @@ const api = {
 export default class Wechat {
   constructor(opts) {
     this.opts = Object.assign({}, opts)
-
     this.appID = opts.appID
     this.appSecret = opts.appSecret
     this.getAccessToken = opts.getAccessToken
@@ -21,11 +20,11 @@ export default class Wechat {
   async request(options) {
     options = Object.assign({}, options, { json: true })
 
-    try{
-      const response = await this.request(options)
-      console.log('wechat-lib.index.js: ', response)
+    try {
+      const response = await request(options)
+      console.log('wechat-lib/index.js中request函数的response: ', response)
       return response
-    } catch(err) {
+    } catch (err) {
       console.error(err)
     }
   }
@@ -33,19 +32,18 @@ export default class Wechat {
   // 初始化token
   async fetchAccessToken() {
     let data = await this.getAccessToken()
-
     // token失效或不合法就更新token
     if (!this.isValidAccessToken(data)) {
       data = await this.updateAccessToken()
     }
 
-    await this.saveAccessToken()
+    await this.saveAccessToken(data)
 
     return data
   }
 
+  // 首次初始化时数据库没有就用此函数向微信服务器发送请求获取最新token
   async updateAccessToken() {
-    console.log('执行updateAccessToken~~~~')
     const url = api.accessToken + '&appid=' + this.appID + '&secret=' + this.appSecret
     const data = await this.request({ url: url })
     const now = (new Date().getTime())
