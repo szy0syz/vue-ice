@@ -4,9 +4,9 @@ import mongoose from 'mongoose'
 import config from "../config"
 
 const models = resolve(__dirname, '../database/schema')
-
+console.log(models)
 fs.readdirSync(models)
-  .filter(file => ~file.search(/^[^\.]\.*js$/))
+  .filter(file => ~file.search(/\.js$/)) // 只要.js结尾的文件
   .forEach(file => require(resolve(models, file)))
 
 export const database = app => {

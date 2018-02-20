@@ -36,6 +36,11 @@ TokenSchema.statics = {
     const token = await this.findOne({
       name: 'access_token'
     }).exec()
+
+    if (token && token.token) {
+      token.access_token = token.token // 对外提供统一的数据对象
+    }
+
     return token
   },
   async saveAccessToken(data) {

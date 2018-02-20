@@ -1,12 +1,12 @@
 // 微信异步场景的入口文件 管理微信api地址
-import request from "requset-promise";
+import request from "request-promise";
 
 const base = 'https://api.weixin.qq.com/cgi-bin/'
 const api = {
   accessToken: base + 'token?grant_type=client_credential'
 }
 
-class Wechat {
+export default class Wechat {
   constructor(opts) {
     this.opts = Object.assign({}, opts)
 
@@ -23,7 +23,7 @@ class Wechat {
 
     try{
       const response = await this.request(options)
-
+      console.log('wechat-lib.index.js: ', response)
       return response
     } catch(err) {
       console.error(err)
@@ -32,11 +32,11 @@ class Wechat {
 
   // 初始化token
   async fetchAccessToken() {
-    const data = await this.getAccessToken()
+    let data = await this.getAccessToken()
 
     // token失效或不合法就更新token
     if (!this.isValidAccessToken(data)) {
-      return await this.updateAccessToken()
+      data = await this.updateAccessToken()
     }
 
     await this.saveAccessToken()
@@ -45,6 +45,7 @@ class Wechat {
   }
 
   async updateAccessToken() {
+    console.log('执行updateAccessToken~~~~')
     const url = api.accessToken + '&appid=' + this.appID + '&secret=' + this.appSecret
     const data = await this.request({ url: url })
     const now = (new Date().getTime())
