@@ -42,14 +42,14 @@ export default function (opts, reply) {
       ctx.weixin = {} //message
       // ！让reply在内部执行且在执行时能调用到当前上下文ctx
       await reply.apply(ctx, [ctx, next])
-
+      // reply中间件把处理好的回复内容放到了ctx.body上
       const replyBody = ctx.body
       const msg = ctx.weixin
       //const xml = util.tpl(replyBody, msg)
       console.log(replyBody)
       ctx.status = 200
       ctx.type = 'application/xml'
-      const tmp = `<xml> <ToUserName>< ![CDATA[${content.xml.FromUserName[0]}] ]></ToUserName> <FromUserName>< ![CDATA[${content.xml.ToUserName[0]}] ]></FromUserName> <CreateTime>1519144761</CreateTime> <MsgType>< ![CDATA[text] ]></MsgType> <Content>< ![CDATA[${replyBody}] ]></Content> </xml>`
+      const tmp = `<xml> <ToUserName>< ![CDATA[${content.xml.FromUserName[0]}] ]></ToUserName> <FromUserName>< ![CDATA[${content.xml.ToUserName[0]}] ]></FromUserName> <CreateTime>12345678</CreateTime> <MsgType>< ![CDATA[text] ]></MsgType> <Content>< ![CDATA[${replyBody}] ]></Content> </xml>`
       console.log(tmp)
       ctx.body = tmp
     }
