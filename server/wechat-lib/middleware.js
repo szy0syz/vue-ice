@@ -35,23 +35,22 @@ export default function (opts, reply) {
       })
       // 解析xml数据包
       const content = await util.parseXML(data)
-      //const message = util.formatMessage(content.xml)
+      const message = util.formatMessage(content.xml)
       console.log(content)
 
       // 后续中间件可以访问到这个解析过的对象
-      ctx.weixin = {} //message
+      ctx.weixin = message
       // ！让reply在内部执行且在执行时能调用到当前上下文ctx
       await reply.apply(ctx, [ctx, next])
       // reply中间件把处理好的回复内容放到了ctx.body上
       const replyBody = ctx.body
       const msg = ctx.weixin
-      //const xml = util.tpl(replyBody, msg)
+      const xml = util.tpl(replyBody, msg)
       console.log(replyBody)
+      console.log(xml)
       ctx.status = 200
       ctx.type = 'application/xml'
-      const tmp = `<xml> <ToUserName>< ![CDATA[${content.xml.FromUserName[0]}] ]></ToUserName> <FromUserName>< ![CDATA[${content.xml.ToUserName[0]}] ]></FromUserName> <CreateTime>12345678</CreateTime> <MsgType>< ![CDATA[text] ]></MsgType> <Content>< ![CDATA[${replyBody}] ]></Content> </xml>`
-      console.log(tmp)
-      ctx.body = tmp
+      ctx.body = xml
     }
   }
 }[0]
