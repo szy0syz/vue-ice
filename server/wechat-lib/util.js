@@ -53,7 +53,6 @@ function tpl(content, message) {
   if (Array.isArray(content)) {
     type = 'text'
   }
-  console.log('我是util李的tpl函数-type0: ', type)
   if (!content) {
     content = 'Empty News'
   }
@@ -61,7 +60,6 @@ function tpl(content, message) {
   if (content && content.type) {
     type = content.type
   }
-  console.log('我是util李的tpl函数-type1: ', type)
   type = content.type || type
   let info = Object.assign({}, {
     content: content,

@@ -36,7 +36,6 @@ export default function (opts, reply) {
       // 解析xml数据包
       const content = await util.parseXML(data)
       const message = util.formatMessage(content.xml)
-      console.log(content)
 
       // 后续中间件可以访问到这个解析过的对象
       ctx.weixin = message
@@ -46,7 +45,6 @@ export default function (opts, reply) {
       const replyBody = ctx.body
       const msg = ctx.weixin
       const xml = util.tpl(replyBody, msg)
-      console.log(replyBody)
       console.log(xml)
       ctx.status = 200
       ctx.type = 'application/xml'
