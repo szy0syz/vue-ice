@@ -21,7 +21,7 @@ export default function (opts, reply) {
       } else {
         ctx.body = 'Failed'
       }
-    } else if (ctx.method === 'POST'){
+    } else if (ctx.method === 'POST') {
       if (sha !== signature) {
         ctx.body = 'Failed'
         return false
@@ -45,10 +45,13 @@ export default function (opts, reply) {
       const replyBody = ctx.body
       const msg = ctx.weixin
       const xml = util.tpl(replyBody, msg)
+      console.log('*********************')
+      console.log('我是最后回复微信服务器的内容哟')
       console.log(xml)
+      console.log('*********************')
       ctx.status = 200
       ctx.type = 'application/xml'
       ctx.body = xml
     }
   }
-}[0]
+} [0]

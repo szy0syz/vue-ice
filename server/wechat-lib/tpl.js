@@ -50,3 +50,11 @@ const tpl = `
 const template = ejs.compile(tpl)
 
 export default template
+
+/*
+<Video>
+  <MediaId>< ![CDATA[media_id] ]></MediaId>
+  <Title>< ![CDATA[title] ]></Title>
+  <Description>< ![CDATA[description] ]></Description>
+</Video>
+*/
