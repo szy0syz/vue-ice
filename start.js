@@ -1,7 +1,10 @@
 require('babel-core/register')({
+  'ignore': [/node_modules/],
   'presets': [
     'stage-3',
-    ['latest-node', { 'target': 'current' }]
+    ['latest-node', {
+      'target': 'current'
+    }]
   ]
 })
 
