@@ -60,12 +60,11 @@ TokenSchema.statics = {
     }
 
     try {
-
+      await token.save()
     } catch (e) {
       console.log('存储AccessToken失败!!!')
       console.error(e)
     }
-    await token.save()
 
     return data
   }
