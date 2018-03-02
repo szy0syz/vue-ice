@@ -2,6 +2,7 @@ import Router from 'koa-router'
 import config from '../config'
 import reply from '../wechat/reply'
 import wechatMiddle from '../wechat-lib/middleware'
+import { resolve } from 'path'
 
 export const router = app => {
   const router = new Router()
@@ -11,6 +12,22 @@ export const router = app => {
 
   // opts 存微信公众号的key、id等，reply回复策略
   router.all('/wechat-hear', wechatMiddle(config.wechat, reply))
+
+  //
+  router.get('/upload', async (ctx, next) => {
+    let mp = require('../wechat')
+    let client = mp.getWechat()
+    //测试临时视频
+    //await client.handle('uploadMaterial', 'video', resolve(__dirname,'../../ice.mp4'))
+    //测试永久视频
+    //await client.handle('uploadMaterial', 'video', resolve(__dirname,'../../ice.mp4'), {type: 'video', description:'{"type":"视频标题111", "introduction":"视频描述222"}'})
+    //测试永久图片素材
+    //await client.handle('uploadMaterial', 'image', resolve(__dirname,'../../saber.jpeg'), {type: 'image'})
+    //测试临时图片素材
+    //await client.handle('uploadMaterial', 'image', resolve(__dirname,'../../saber.jpeg'))
+    const data = await client.handle('uploadMaterial', 'image', resolve(__dirname,'../../saber.jpeg'), {type: 'image'})
+    console.log(data)
+  })
 
   app
     .use(router.routes())
