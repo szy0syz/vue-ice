@@ -32,6 +32,11 @@ export default async (ctx, next) => {
         //const data = await client.handle('batchTag',['o9ln70r28EsBvBnp7b3L2zwbtxZ4','o9ln70pBefkwU2OYo9gfwJCpSf90'], 2)
         //const data = await client.handle('getTagList','o9ln70r28EsBvBnp7b3L2zwbtxZ4')
       }
+
+      if (message.Content === '2') {
+        const menu = require('./menu').default
+        await client.handle('createMenu', menu)
+      }
       ctx.body = message.Content
       break;
     case 'image':
@@ -62,13 +67,21 @@ export default async (ctx, next) => {
     case 'event':
       switch (message.Event) {
         case 'subscribe':
-          ctx.body = '[关注事件]'
+          ctx.body = '[关注事件]已触发'
           break;
         case 'unsubscribe':
           console.log('[*] 用户取消关注了')
           break;
         case 'LOCATION':
           ctx.body = '[上报地理位置事件]' + message.Latitude + ' : ' + message.Longitude + ' : ' + message.Precision
+          break;
+        case 'view':
+          console.log('[菜单链接跳转事件]')
+          ctx.body = message.EventKey + message.MenuId
+          break;
+        case 'pic_sysphoto':
+          console.log('[弹出系统拍照发图的事件]')
+          ctx.body = message.Count + 'photos sent.'
           break;
         default:
           ctx.body = '未知事件'
