@@ -1,7 +1,7 @@
 // 对微信异步场景初始化
 import mongoose from 'mongoose'
 import config from '../config'
-import Wechat from "../wechat-lib"
+import Wechat from '../wechat-lib'
 
 const Token = mongoose.model('Token')
 const Ticket = mongoose.model('Ticket')
