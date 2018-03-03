@@ -3,6 +3,8 @@ const tip = '[默认消息]我的saber酱'
 export default async (ctx, next) => {
   // 这个message就是微信服务器返回xml转的对象
   const message = ctx.weixin
+  let mp = require('./index')
+  let client = mp.getWechat()
 
   console.log('~~~~~~~~~~~')
   console.log('我是微信传来的消息哦~~')
@@ -10,6 +12,22 @@ export default async (ctx, next) => {
   console.log('~~~~~~~~~~~')
   switch (message.MsgType) {
     case 'text':
+      if (message.Content === '1') {
+        let userList = [
+          {
+            openid: 'o9ln70pBefkwU2OYo9gfwJCpSf90',
+            lang: 'zh_CN'
+          },
+          {
+            openid: 'o9ln70h0TgqD-N28g0-o8-VYXSAw',
+            lang: 'zh_CN'
+          },
+          {
+            openid: 'o9ln70r28EsBvBnp7b3L2zwbtxZ4',
+            lang: 'zh_CN'
+          }]
+        const data = await client.handle('batchUserInfo', userList)
+      }
       ctx.body = message.Content
       break;
     case 'image':

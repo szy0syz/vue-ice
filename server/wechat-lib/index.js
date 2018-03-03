@@ -33,7 +33,13 @@ const api = {
     getTagList: base + 'tags/getidlist?'
   },
   user: {
-    remark: base + 'user/info/updateremark?'
+    remark: base + 'user/info/updateremark?',
+    info: base + 'user/info?',
+    batchInfo: base + 'user/info/batchget?',
+    fetchUserList: base + 'user/get?',
+    getBlackList: base + 'tags/members/getblacklist?',
+    batchBlackUsers: base + 'tags/members/batchblacklist?',
+    batchUnBlackUsers: base + 'tags/members/batchunblacklist?'
   }
 }
 
@@ -59,10 +65,10 @@ export default class Wechat {
 
   async request(options) {
     options = Object.assign({}, options, { json: true })
-
+    console.log('请求的options： \n', options)
     try {
       const response = await request(options)
-      console.log('wechat-lib/index.js中request函数的response: ', response)
+      console.log('wechat-lib/index.js中request函数的response: \n', response)
       return response
     } catch (err) {
       console.error(err)
@@ -317,4 +323,24 @@ export default class Wechat {
 
     return { method: 'POST', url, body }
   }
+
+  getUserInfo(token, openId, lang) {
+    const url = `${api.user.info}access_token=${token}&openid=${openId}&lang=${lang || 'zh_CN'}`
+    return { url }
+  }
+
+  batchUserInfo(token, userList) {
+    const url = api.user.batchInfo + 'access_token=' + token
+    const body = { user_list: userList }
+    return { method: 'POST', url, body }
+  }
+
+  //批量获取用户列表
+  fetchUserList(token, next_openId) {
+    const url = `${api.user.fetchUserList}access_token=${token}&next_openid=${next_openId || ''}`
+    return { url }
+  }
+
+  //
+
 }
