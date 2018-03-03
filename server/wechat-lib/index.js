@@ -4,6 +4,7 @@ import path from 'path'
 import * as _ from 'lodash'
 import request from "request-promise"
 import formstream from 'formstream'
+import { sign } from './util'
 
 const base = 'https://api.weixin.qq.com/cgi-bin/'
 const api = {
@@ -48,6 +49,9 @@ const api = {
     addConditional: base + 'menu/addconditional?',
     delConditional: base + 'menu/delconditional?',
     getInfo: base + 'get_current_selfmenu_info?'
+  },
+  ticket: {
+    get: base + 'ticket/getticket?'
   }
 }
 
@@ -67,8 +71,13 @@ export default class Wechat {
     this.appSecret = opts.appSecret
     this.getAccessToken = opts.getAccessToken
     this.saveAccessToken = opts.saveAccessToken
+
+    this.getTicket = opts.getTicket
+    this.saveTicket = opts.saveTicket
+
     // 在实例第一次创建时，初始化token
     this.fetchAccessToken()
+    this.fetchTicket()
   }
 
   async request(options) {
@@ -88,11 +97,35 @@ export default class Wechat {
     let data = await this.getAccessToken()
 
     // token失效或不合法就更新token
-    if (!this.isValidAccessToken(data)) {
+    if (!this.isValidToken(data, 'access_token')) {
       data = await this.updateAccessToken()
     }
 
     await this.saveAccessToken(data)
+
+    return data
+  }
+
+  async fetchTicket() {
+    let data = await this.getTicket()
+
+    // ticket失效或不合法就更新
+    if (!this.isValidToken(data, 'ticket')) {
+      data = await this.updateTicket()
+    }
+
+    await this.saveTicket(data)
+
+    return data
+  }
+
+  async updateTicket(token) {
+    const url = api.ticket.get + 'access_token=' + token + '&type=jsapi'
+
+    let data = await this.request({ url })
+    const now = (new Date().getTime())
+    const expiresIn = now + (data.expires_in - 20) * 1000
+    data.expires_in = expiresIn
 
     return data
   }
@@ -109,8 +142,8 @@ export default class Wechat {
     return data
   }
 
-  isValidAccessToken(data) {
-    if (!data || !data.access_token || !data.expires_in) {
+  isValidToken(data, name) {
+    if (!data || !data[name] || !data.expires_in) {
       return false
     }
 
@@ -384,5 +417,9 @@ export default class Wechat {
   getCurrentMenuInfo(token) {
     const url = api.menu.getInfo + 'access_token=' + token
     return { url }
+  }
+
+  sign(ticket, url) {
+    return sign(ticket, url)
   }
 }
