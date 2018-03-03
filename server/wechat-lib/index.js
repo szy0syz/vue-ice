@@ -245,14 +245,14 @@ export default class Wechat {
         name
       }
     }
-    const url = api.tag.create + 'access_token' + token
+    const url = api.tag.create + 'access_token=' + token
     // 返回的都是request的options
     return { method: 'POST', url, body }
   }
 
   // 获取标签列表
   fetchTags(token) {
-    const url = api.tag.fetch + 'access_token' + token
+    const url = api.tag.fetch + 'access_token=' + token
 
     return { url }
   }
@@ -265,19 +265,19 @@ export default class Wechat {
       }
     }
 
-    const url = api.tag.update + 'access_token' + token
+    const url = api.tag.update + 'access_token=' + token
 
     return { method: 'POST', url, body }
   }
 
-  updateTag(token, tagId) {
+  delTag(token, tagId) {
     const body = {
       tag: {
         id: tagId
       }
     }
 
-    const url = api.tag.del + 'access_token' + token
+    const url = api.tag.del + 'access_token=' + token
 
     return { method: 'POST', url }
   }
@@ -289,7 +289,7 @@ export default class Wechat {
       next_openid: openId || ''
     }
 
-    const url = api.tag.fetchUsers + 'access_token' + token
+    const url = api.tag.fetchUsers + 'access_token=' + token
 
     return { method: 'POST', url, body }
   }

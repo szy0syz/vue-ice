@@ -13,20 +13,24 @@ export default async (ctx, next) => {
   switch (message.MsgType) {
     case 'text':
       if (message.Content === '1') {
-        let userList = [
-          {
-            openid: 'o9ln70pBefkwU2OYo9gfwJCpSf90',
-            lang: 'zh_CN'
-          },
-          {
-            openid: 'o9ln70h0TgqD-N28g0-o8-VYXSAw',
-            lang: 'zh_CN'
-          },
-          {
-            openid: 'o9ln70r28EsBvBnp7b3L2zwbtxZ4',
-            lang: 'zh_CN'
-          }]
-        const data = await client.handle('batchUserInfo', userList)
+        // let userList = [
+        //   {
+        //     openid: 'o9ln70pBefkwU2OYo9gfwJCpSf90',
+        //     lang: 'zh_CN'
+        //   },
+        //   {
+        //     openid: 'o9ln70h0TgqD-N28g0-o8-VYXSAw',
+        //     lang: 'zh_CN'
+        //   },
+        //   {
+        //     openid: 'o9ln70r28EsBvBnp7b3L2zwbtxZ4',
+        //     lang: 'zh_CN'
+        //   }]
+        //const data = await client.handle('updateTag',100, '云南人')
+        //const data = await client.handle('createTag', '云南')
+        const data = await client.handle('fetchTags')
+        //const data = await client.handle('batchTag',['o9ln70r28EsBvBnp7b3L2zwbtxZ4','o9ln70pBefkwU2OYo9gfwJCpSf90'], 2)
+        //const data = await client.handle('getTagList','o9ln70r28EsBvBnp7b3L2zwbtxZ4')
       }
       ctx.body = message.Content
       break;
