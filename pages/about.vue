@@ -5,26 +5,26 @@
   </section>
 </template>
 <script>
-import { mapState } from "vuex";
-import { DH_CHECK_P_NOT_SAFE_PRIME } from "constants";
+// import { mapState } from 'vuex'
+// import { DH_CHECK_P_NOT_SAFE_PRIME } from 'constants'
 export default {
   asyncData({ req }) {
     return {
-      name: req ? "server" : "client"
-    };
+      name: req ? 'server' : 'client'
+    }
   },
   head() {
     return {
-      title: "测试页面"
-    };
+      title: '测试页面'
+    }
   },
   beforeMount() {
-    const wx = window.wx;
-    const url = window.location.href;
+    const wx = window.wx
+    const url = window.location.href
 
-    this.$store.dispatch("getWechatSignature", url).then(res => {
+    this.$store.dispatch('getWechatSignature', url).then(res => {
       if (res.data.success) {
-        const params = res.data.params;
+        const params = res.data.params
 
         wx.config({
           debug: true,
@@ -33,25 +33,25 @@ export default {
           noceStr: params.nocestr,
           signature: params.signature,
           jsApiList: [
-            "previewImage",
-            "chooseImage",
-            "uploadImage",
-            "downloadImage",
-            "onMenuShareTimeline",
-            "showAllNonBaseMenuItem",
-            "hideAllNonBaseMenuItem",
-            "showMenuItems"
+            'previewImage',
+            'chooseImage',
+            'uploadImage',
+            'downloadImage',
+            'onMenuShareTimeline',
+            'showAllNonBaseMenuItem',
+            'hideAllNonBaseMenuItem',
+            'showMenuItems'
           ]
-        });
+        })
 
         wx.ready(() => {
-          wx.hideAllNonBaseMenuItem();
-          console.log("success");
-        });
+          wx.hideAllNonBaseMenuItem()
+          console.log('success')
+        })
       }
-    });
+    })
   }
-};
+}
 </script>
 
 <style scoped>
