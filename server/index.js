@@ -1,7 +1,7 @@
 import Koa from 'koa'
 import { Nuxt, Builder } from 'nuxt'
 import R from 'ramda'
-import { resolve } from 'path';
+import { resolve } from 'path'
 
 // 25分钟~~~
 
@@ -12,7 +12,7 @@ config.dev = !(process.env === 'production')
 const r = path => resolve(__dirname, path)
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 4000
-const MIDDLEWARES = ['database' ,'router']
+const MIDDLEWARES = ['database', 'router']
 
 class Server {
   constructor() {
@@ -26,11 +26,9 @@ class Server {
     // app.use(mid1)
     // app.use(mid2)
     // app.use(mid3)
-    return R.map()(R.compose(
-      R.map(i => i(app)),
-      require,
-      i => `${r('./middlewares')}/${i}`
-    ))
+    return R.map()(
+      R.compose(R.map(i => i(app)), require, i => `${r('./middlewares')}/${i}`)
+    )
   }
 
   async start() {

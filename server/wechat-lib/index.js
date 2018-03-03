@@ -1,9 +1,9 @@
 // 微信异步场景的入口文件 管理微信api地址
 import fs from 'fs'
-import path from 'path'
+// import path from 'path'
 import * as _ from 'lodash'
-import request from "request-promise"
-import formstream from 'formstream'
+import request from 'request-promise'
+// import formstream from 'formstream'
 import { sign } from './util'
 
 const base = 'https://api.weixin.qq.com/cgi-bin/'
@@ -11,7 +11,7 @@ const api = {
   accessToken: base + 'token?grant_type=client_credential',
   temporary: {
     upload: base + 'media/upload?',
-    fetch: base + 'media/get?',
+    fetch: base + 'media/get?'
   },
   permanent: {
     upload: base + 'material/add_material?',
@@ -55,14 +55,14 @@ const api = {
   }
 }
 
-function statFile(filepath) {
-  return new Promise((resolve, reject) => {
-    fs.stat(filepath, (err, stat) => {
-      if (err) reject(err)
-      else resolve(stat)
-    })
-  })
-}
+// function statFile (filepath) {
+//   return new Promise((resolve, reject) => {
+//     fs.stat(filepath, (err, stat) => {
+//       if (err) reject(err)
+//       else resolve(stat)
+//     })
+//   })
+// }
 
 export default class Wechat {
   constructor(opts) {
@@ -106,9 +106,9 @@ export default class Wechat {
     return data
   }
 
-  async fetchTicket() {
+  async fetchTicket(token) {
     let data = await this.getTicket()
-
+    console.log('！！！fetchTicket中', data)
     // ticket失效或不合法就更新
     if (!this.isValidToken(data, 'ticket')) {
       data = await this.updateTicket()
@@ -123,7 +123,7 @@ export default class Wechat {
     const url = api.ticket.get + 'access_token=' + token + '&type=jsapi'
 
     let data = await this.request({ url })
-    const now = (new Date().getTime())
+    const now = new Date().getTime()
     const expiresIn = now + (data.expires_in - 20) * 1000
     data.expires_in = expiresIn
 
@@ -132,9 +132,10 @@ export default class Wechat {
 
   // 首次初始化时数据库没有就用此函数向微信服务器发送请求获取最新token
   async updateAccessToken() {
-    const url = api.accessToken + '&appid=' + this.appID + '&secret=' + this.appSecret
+    const url =
+      api.accessToken + '&appid=' + this.appID + '&secret=' + this.appSecret
     const data = await this.request({ url })
-    const now = (new Date().getTime())
+    const now = new Date().getTime()
     const expiresIn = now + (data.expires_in - 20) * 1000
 
     data.expires_in = expiresIn
@@ -148,12 +149,12 @@ export default class Wechat {
     }
 
     const expiresIn = data.expires_in
-    const now = (new Date().getTime())
+    const now = new Date().getTime()
 
     if (now < expiresIn) {
       return true
     } else {
-      false
+      return false
     }
   }
 
@@ -190,7 +191,7 @@ export default class Wechat {
       // form.file('media', material, path.basename(material), stat.size)
     }
 
-    //拼接上传url
+    // 拼接上传url
     let uploadUrl = url + 'access_token=' + token
 
     if (!permanent) {
@@ -209,7 +210,7 @@ export default class Wechat {
     }
 
     if (type === 'news') {
-      options.body == form
+      options.body = form
     } else {
       options.formData = form
     }
@@ -248,7 +249,8 @@ export default class Wechat {
       media_id: mediaId
     }
 
-    const url = api.permanent.del + 'access_token=' + token + '&media_id=' + mediaId
+    const url =
+      api.permanent.del + 'access_token=' + token + '&media_id=' + mediaId
 
     return { method: 'POST', url: url, body: form }
   }
@@ -259,7 +261,8 @@ export default class Wechat {
     }
 
     _.extend(form, news)
-    const url = api.permanent.update + 'access_token=' + token + '&media_id=' + mediaId
+    const url =
+      api.permanent.update + 'access_token=' + token + '&media_id=' + mediaId
 
     return { method: 'POST', url: url, body: form }
   }
@@ -320,7 +323,7 @@ export default class Wechat {
 
     const url = api.tag.del + 'access_token=' + token
 
-    return { method: 'POST', url }
+    return { method: 'POST', url, body }
   }
 
   // 获取某个标签下的粉丝列表
@@ -335,18 +338,20 @@ export default class Wechat {
     return { method: 'POST', url, body }
   }
 
-  //批量为用户打标签或取消标签
+  // 批量为用户打标签或取消标签
   batchTag(token, openIdList, tagId, unTag) {
     const body = {
       openid_list: openIdList,
       tagid: tagId
     }
-    const url = unTag ? api.tag.batchUnTag : api.tag.batchTag + 'access_token=' + token
+    const url = unTag
+      ? api.tag.batchUnTag
+      : api.tag.batchTag + 'access_token=' + token
 
     return { method: 'POST', url, body }
   }
 
-  //获取用户身上的标签列表
+  // 获取用户身上的标签列表
   getTagList(token, openId) {
     const body = { openid: openId }
     const url = api.tag.getTagList + 'access_token=' + token
@@ -354,7 +359,7 @@ export default class Wechat {
     return { method: 'POST', url, body }
   }
 
-  //设置用户备注名
+  // 设置用户备注名
   remarkUser(token, openId, remark) {
     const body = {
       openid: openId,
@@ -366,7 +371,9 @@ export default class Wechat {
   }
 
   getUserInfo(token, openId, lang) {
-    const url = `${api.user.info}access_token=${token}&openid=${openId}&lang=${lang || 'zh_CN'}`
+    const url = `${
+      api.user.info
+    }access_token=${token}&openid=${openId}&lang=${lang || 'zh_CN'}`
     return { url }
   }
 
@@ -376,9 +383,11 @@ export default class Wechat {
     return { method: 'POST', url, body }
   }
 
-  //批量获取用户列表
-  fetchUserList(token, next_openId) {
-    const url = `${api.user.fetchUserList}access_token=${token}&next_openid=${next_openId || ''}`
+  // 批量获取用户列表
+  fetchUserList(token, nextOpenId) {
+    const url = `${
+      api.user.fetchUserList
+    }access_token=${token}&next_openid=${nextOpenId || ''}`
     return { url }
   }
 
@@ -389,7 +398,7 @@ export default class Wechat {
 
   getMenu(token) {
     const url = api.menu.get + 'access_token=' + token
-    return { url } //default method -> get
+    return { url } // default method -> get
   }
 
   delMenu(token) {

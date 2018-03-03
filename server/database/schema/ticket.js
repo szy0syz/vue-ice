@@ -1,7 +1,5 @@
 // 管理微信公众号全局票据 Schema
-
 const mongoose = require('mongoose')
-const Schema = mongoose.Schema
 
 const TicketSchema = new mongoose.Schema({
   name: String, // 票据名称
@@ -44,6 +42,7 @@ TicketSchema.statics = {
     return ticket
   },
   async saveTicket(data) {
+    console.log('我是token实例', data)
     let ticket = await this.findOne({
       name: 'ticket'
     }).exec()
@@ -62,7 +61,7 @@ TicketSchema.statics = {
     try {
       await ticket.save()
     } catch (e) {
-      console.log('存储AccessTicket失败!!!')
+      console.log('存储Ticket失败!!!')
       console.error(e)
     }
 
