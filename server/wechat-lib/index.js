@@ -21,6 +21,19 @@ const api = {
     update: base + 'aterial/update_news?',
     count: base + 'material/get_materialcount?',
     batch: base + 'material/batchget_material?'
+  },
+  tag: {
+    create: base + 'tags/create?',
+    fetch: base + 'tags/get?',
+    update: base + 'tags/update?',
+    del: base + 'tags/delete?',
+    fetchUsers: base + 'user/tag/get?',
+    batchTag: base + 'tags/members/batchtagging?',
+    batchUnTag: base + 'tags/members/batchuntagging?',
+    getTagList: base + 'tags/getidlist?'
+  },
+  user: {
+    remark: base + 'user/info/updateremark?'
   }
 }
 
@@ -218,5 +231,90 @@ export default class Wechat {
     const url = api.permanent.batch + 'access_token=' + token
 
     return { method: 'POST', url: url, body: options }
+  }
+
+  createTag(token, name) {
+    const body = {
+      tag: {
+        name
+      }
+    }
+    const url = api.tag.create + 'access_token' + token
+    // 返回的都是request的options
+    return { method: 'POST', url, body }
+  }
+
+  // 获取标签列表
+  fetchTags(token) {
+    const url = api.tag.fetch + 'access_token' + token
+
+    return { url }
+  }
+
+  updateTag(token, tagId, name) {
+    const body = {
+      tag: {
+        id: tagId,
+        name
+      }
+    }
+
+    const url = api.tag.update + 'access_token' + token
+
+    return { method: 'POST', url, body }
+  }
+
+  updateTag(token, tagId) {
+    const body = {
+      tag: {
+        id: tagId
+      }
+    }
+
+    const url = api.tag.del + 'access_token' + token
+
+    return { method: 'POST', url }
+  }
+
+  // 获取某个标签下的粉丝列表
+  fetchTagUsers(token, tagId, openId) {
+    const body = {
+      tagid: tagId,
+      next_openid: openId || ''
+    }
+
+    const url = api.tag.fetchUsers + 'access_token' + token
+
+    return { method: 'POST', url, body }
+  }
+
+  //批量为用户打标签或取消标签
+  batchTag(token, openIdList, tagId, unTag) {
+    const body = {
+      openid_list: openIdList,
+      tagid: tagId
+    }
+    const url = unTag ? api.tag.batchUnTag : api.tag.batchTag + 'access_token=' + token
+
+    return { method: 'POST', url, body }
+  }
+
+  //获取用户身上的标签列表
+  getTagList(token, openId) {
+    const body = { openid: openId }
+    const url = api.tag.getTagList + 'access_token=' + token
+
+    return { method: 'POST', url, body }
+  }
+
+  //设置用户备注名
+  remarkUser(token, openId, remark) {
+    const body = {
+      openid: openId,
+      remark: remark
+    }
+    const url = api.user.remark + 'access_token=' + token
+
+    return { method: 'POST', url, body }
   }
 }
