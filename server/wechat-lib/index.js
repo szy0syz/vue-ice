@@ -77,7 +77,8 @@ export default class Wechat {
 
     // 在实例第一次创建时，初始化token
     this.fetchAccessToken()
-    this.fetchTicket()
+    console.log('~~~lib~~~', this.getAccessToken())
+    this.fetchTicket(this.getAccessToken())
   }
 
   async request(options) {
