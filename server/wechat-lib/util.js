@@ -1,5 +1,6 @@
 import xml2js from 'xml2js'
 import template from './tpl'
+import sha1 from 'sha1'
 
 function parseXML(xml) {
   return new Promise((resolve, reject) => {
@@ -109,6 +110,8 @@ function signIt(noncestr, ticket, timestamp, url) {
 
   const string = raw(ret)
   const sha = sha1(string)
+
+  return sha
 }
 
 function sign(ticket, url) {
