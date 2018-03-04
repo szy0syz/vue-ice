@@ -17,7 +17,7 @@ export const router = app => {
   router.get('/wechat-signature', signature)
   router.get('/wechat-redirect', redirect)
   router.get('/wechat-oauth', oauth)
-
+  // http://jerrys.free.ngrok.cc/wechat-redirect?a=111&b=222
   router.get('/upload', async (ctx, next) => {
     let mp = require('../wechat', signature)
     let client = mp.getWechat()

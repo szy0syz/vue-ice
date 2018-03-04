@@ -78,12 +78,12 @@ export default class Wechat {
 
     // 初始实例时，获取accessToken和ticket
     this.fetchAccessToken()
-    this.fetchTicket()
+    // this.fetchTicket() // 这里构造函数不能await
   }
 
   async request(options) {
     options = Object.assign({}, options, { json: true })
-    console.log('请求的options： \n', options)
+    console.log('requset请求的options： \n', options)
     try {
       const response = await request(options)
       console.log('wechat-lib/index.js中request函数的response: \n', response)

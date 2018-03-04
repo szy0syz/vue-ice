@@ -24,7 +24,7 @@ export async function redirect(ctx, next) {
   const { a, b } = ctx.query // ~~~~~~~~~~这里只是测试用！
   const params = `${a}_${b}`
 
-  const url = api.getAuthorizeURL(scope, target, params)
+  const url = await api.getAuthorizeURL(scope, target, params)
 
   ctx.redirect(url)
 }
@@ -38,8 +38,8 @@ export async function oauth(ctx, next) {
   const urlObj = urlParse(url)
   const params = queryParse(urlObj.query)
   const code = params.code
+
   const user = await api.getUserByCode(code)
-  console.log('~~控制器wechat的user ', user)
 
   ctx.body = {
     succsee: true,

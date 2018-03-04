@@ -54,4 +54,4 @@ export default function (opts, reply) {
       ctx.body = xml
     }
   }
-} [0]
+}
