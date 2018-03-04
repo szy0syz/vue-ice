@@ -434,7 +434,7 @@ export default class Wechat {
     const body = {
       menuid: menuId
     }
-    return { method: 'POSt', url, body }
+    return { method: 'POST', url, body }
   }
 
   getCurrentMenuInfo(token) {
@@ -444,5 +444,11 @@ export default class Wechat {
 
   sign(ticket, url) {
     return sign(ticket, url)
+  }
+
+  sendTemplate(token, body) {
+    const url = api.template.send + 'access_token=' + token
+
+    return {method: 'POST', url, body}
   }
 }
