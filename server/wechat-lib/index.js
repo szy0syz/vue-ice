@@ -78,7 +78,7 @@ export default class Wechat {
 
     // 初始实例时，获取accessToken和ticket
     this.fetchAccessToken()
-    // this.fetchTicket() // 这里构造函数不能await
+    this.fetchTicket() // 这里构造函数不能await
   }
 
   async request(options) {
@@ -93,11 +93,11 @@ export default class Wechat {
     }
   }
 
-  // 初始化token
+  // 初始获取token
   async fetchAccessToken() {
     let data = await this.getAccessToken()
 
-    // token失效或不合法就更新token
+    // token不合法就更新token
     if (!this.isValidToken(data, 'access_token')) {
       data = await this.updateAccessToken()
     }
@@ -112,6 +112,11 @@ export default class Wechat {
 
     // ticket失效或不合法就更新
     if (!this.isValidToken(data, 'ticket')) {
+      // 如果没传token参数，尝试到数据库获取
+      if (!token) {
+        const dbToken = await this.getAccessToken()
+        token = dbToken.token
+      }
       data = await this.updateTicket(token)
     }
 

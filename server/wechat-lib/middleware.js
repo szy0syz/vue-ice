@@ -27,7 +27,7 @@ export default function (opts, reply) {
         return false
       }
 
-      //先拿到请求的数据包
+      // 先拿到请求的数据包
       const data = await getRawBody(ctx.req, {
         length: ctx.length,
         limit: '1mb',
