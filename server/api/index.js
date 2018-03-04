@@ -1,7 +1,9 @@
 import {
-  getSignatureAsync
+  getSignatureAsync,
+  getAuthorizeURL
 } from './wechat'
 
 export {
-  getSignatureAsync
+  getSignatureAsync,
+  getAuthorizeURL
 }

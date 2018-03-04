@@ -4,8 +4,11 @@ const baseUrl = ''
 
 class Services {
   getWechatSignature(url) {
-    // 就是本机地址
     return axios.get(`${baseUrl}/wechat-signature?url=${url}`)
+  }
+
+  getUserByOAuth(url) {
+    return axios.get(`${baseUrl}/wechat-oauth?url=${url}`)
   }
 }
 
