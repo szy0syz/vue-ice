@@ -52,6 +52,14 @@ const api = {
   },
   ticket: {
     get: base + 'ticket/getticket?'
+  },
+  template: {
+    setIndustry: base + 'template/api_set_industry?', // 设置所属行业
+    getIndustry: base + 'template/get_industry?', // 获取设置的行业信息
+    get: base + 'template/api_add_template?', // 获得模板ID ! "腾讯写错了?"
+    getAll: base + 'get_all_private_template', // 获取模板列表
+    del: base + 'del_private_template?', // 删除模板
+    send: base + 'message/template/send?' // 发送模板消息
   }
 }
 

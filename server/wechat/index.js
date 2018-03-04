@@ -12,10 +12,23 @@ const wechatConfig = {
     appID: config.wechat.appID,
     appSecret: config.wechat.appSecret,
     token: config.wechat.token,
-    getAccessToken: async () => await Token.getAccessToken(),
-    saveAccessToken: async (data) => await Token.saveAccessToken(data),
-    getTicket: async () => await Ticket.getTicket(),
-    saveTicket: async (data) => await Ticket.saveTicket(data)
+    // [eslint]Redundant use of `await` on a return value.
+    getAccessToken: async () => {
+      const res = await Token.getAccessToken()
+      return res
+    },
+    saveAccessToken: async data => {
+      const res = await Token.saveAccessToken(data)
+      return res
+    },
+    getTicket: async () => {
+      const res = await Ticket.getTicket()
+      return res
+    },
+    saveTicket: async data => {
+      const res = await Ticket.saveTicket(data)
+      return res
+    }
   }
 }
 
