@@ -14,7 +14,7 @@ export const router = app => {
   // opts 存微信公众号的key、id等，reply回复策略
   router.all('/wechat-hear', wechatMiddle(config.wechat, reply))
 
-  router.get('wechat-signature')
+  router.get('/wechat-signature', signature)
 
   router.get('/upload', async (ctx, next) => {
     let mp = require('../wechat', signature)

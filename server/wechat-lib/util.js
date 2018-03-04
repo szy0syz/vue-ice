@@ -93,8 +93,8 @@ function raw(args) {
 
   let str = ''
 
-  for (let k in newArgs) {
-    str += '&' + k + '=' + newArgs[key]
+  for (let key in newArgs) {
+    str += '&' + key + '=' + newArgs[key]
   }
 
   return str.substr(1)
@@ -117,7 +117,7 @@ function signIt(noncestr, ticket, timestamp, url) {
 function sign(ticket, url) {
   const noncestr = createNonce()
   const timestamp = createTimestamp()
-  const signature = signIt(nonce, ticket, timestamp, url)
+  const signature = signIt(noncestr, ticket, timestamp, url)
 
   return {
     noncestr,

@@ -55,6 +55,7 @@ const api = {
   }
 }
 
+// 后面再用
 // function statFile (filepath) {
 //   return new Promise((resolve, reject) => {
 //     fs.stat(filepath, (err, stat) => {
@@ -75,10 +76,9 @@ export default class Wechat {
     this.getTicket = opts.getTicket
     this.saveTicket = opts.saveTicket
 
-    // 在实例第一次创建时，初始化token
+    // 初始实例时，获取accessToken和ticket
     this.fetchAccessToken()
-    console.log('~~~lib~~~', this.getAccessToken())
-    this.fetchTicket(this.getAccessToken())
+    this.fetchTicket()
   }
 
   async request(options) {
@@ -109,10 +109,10 @@ export default class Wechat {
 
   async fetchTicket(token) {
     let data = await this.getTicket()
-    console.log('！！！fetchTicket中', data)
+
     // ticket失效或不合法就更新
     if (!this.isValidToken(data, 'ticket')) {
-      data = await this.updateTicket()
+      data = await this.updateTicket(token)
     }
 
     await this.saveTicket(data)

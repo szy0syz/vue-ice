@@ -42,7 +42,6 @@ TicketSchema.statics = {
     return ticket
   },
   async saveTicket(data) {
-    console.log('我是token实例', data)
     let ticket = await this.findOne({
       name: 'ticket'
     }).exec()

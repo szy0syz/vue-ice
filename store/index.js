@@ -4,9 +4,9 @@ import actions from './actions'
 import mutations from './mutations'
 
 const createStore = () => {
-  return new Vuex({
+  return new Vuex.Store({
     state: {
-
+      user: null
     },
     getters,
     actions,

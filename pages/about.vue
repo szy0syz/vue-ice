@@ -8,11 +8,6 @@
 // import { mapState } from 'vuex'
 // import { DH_CHECK_P_NOT_SAFE_PRIME } from 'constants'
 export default {
-  asyncData({ req }) {
-    return {
-      name: req ? 'server' : 'client'
-    }
-  },
   head() {
     return {
       title: '测试页面'
