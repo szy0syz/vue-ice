@@ -35,7 +35,7 @@ export default {
   },
   computed: {
     // 映射 this.xxx 为 store.state.xxx
-    ...mapState(['houses', 'characters'])
+    ...mapState(['houses', 'characters', 'cities'])
   },
   method: {
     showHouse(item) {
@@ -60,6 +60,7 @@ export default {
     // 创建页面前加载数据
     this.$store.dispatch('fetchHouses')
     this.$store.dispatch('fetchCharacters')
+    this.$store.dispatch('fetchCities')
   }
 }
 </script>
