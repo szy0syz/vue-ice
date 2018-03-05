@@ -9,9 +9,7 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: 'Nuxt.js project' }
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     script: [
       {
         src: 'http://res.wx.qq.com/open/js/jweixin-1.2.0.js'
@@ -21,7 +19,12 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: ['~static/css/main.css'],
+  css: [
+    {
+      src: 'static/sass/base.sass',
+      lang: 'sass?indentedSyntax=true'
+    }
+  ],
   /*
   ** Customize the progress-bar color
   */
