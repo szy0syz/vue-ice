@@ -60,6 +60,15 @@ const api = {
     getAll: base + 'get_all_private_template', // 获取模板列表
     del: base + 'del_private_template?', // 删除模板
     send: base + 'message/template/send?' // 发送模板消息
+  },
+  customservice: {
+    getList: base + 'customservice/getkflist', // 获取客服基本信息
+    getOnLineList: base + 'customservice/getonlinekflist?', // 获取在线客服基本信息
+    add: 'https://api.weixin.qq.com/customservice/kfaccount/add?', // 添加客服帐号 腾讯也醉了?
+    invite: 'https://api.weixin.qq.com/customservice/kfaccount/inviteworker?', // 邀请绑定客服帐号
+    update: 'https://api.weixin.qq.com/customservice/kfaccount/update?', // 设置客服信息
+    uploadheadimg: 'https://api.weixin.qq.com/customservice/kfaccount/uploadheadimg?', // 上传客服头像
+    del: 'https://api.weixin.qq.com/customservice/kfaccount/del?' // 删除客服帐号
   }
 }
 
@@ -449,6 +458,6 @@ export default class Wechat {
   sendTemplate(token, body) {
     const url = api.template.send + 'access_token=' + token
 
-    return {method: 'POST', url, body}
+    return { method: 'POST', url, body }
   }
 }
