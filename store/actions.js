@@ -11,8 +11,8 @@ export default {
 
   async fetchHouses({ state }) {
     const res = await Services.fetchHouses()
-    console.log('~~~data:', res.data.data)
-    state.house = res.data.data
+
+    state.houses = res.data.data
 
     return res
   },
@@ -20,7 +20,7 @@ export default {
   async fetchCharacters({ state }) {
     const res = await Services.fetchCharacters()
 
-    state.house = res.data.data
+    state.characters = res.data.data
 
     return res
   },
@@ -28,7 +28,7 @@ export default {
   async fetchCities({ state }) {
     const res = await Services.fetchCities()
 
-    state.house = res.data.data
+    state.cities = res.data.data
 
     return res
   }

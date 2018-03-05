@@ -1,11 +1,11 @@
 <template lang="pug">
   .container
-    .house(reg='house')
+    .house(ref='house')
       .house-items(v-for='(item, index) in houses' :key='index' @click='showHouse(item)')
-        .desc
-          .words {{item.words}}
-          .cname {{item.name}}
-          .name {{item.cname}}
+        .house-text
+          .words {{ item.words }}
+          .cname {{ item.name }}
+          .name {{ item.cname }}
     
     .character
       .title 主要人物
@@ -34,10 +34,12 @@ export default {
     }
   },
   computed: {
-    ...mapState(['houses', 'characters', 'cities'])
+    // 映射 this.xxx 为 store.state.xxx
+    ...mapState(['houses', 'characters'])
   },
   method: {
     showHouse(item) {
+      // 前端路由跳转到house，附带查询查询参数_id
       this.$router.push({
         path: '/house',
         query: {
@@ -55,9 +57,9 @@ export default {
     }
   },
   beforeCreate() {
+    // 创建页面前加载数据
     this.$store.dispatch('fetchHouses')
     this.$store.dispatch('fetchCharacters')
-    this.$store.dispatch('fetchCities')
   }
 }
 </script>
