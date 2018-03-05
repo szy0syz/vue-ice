@@ -95,7 +95,7 @@ export default class Wechat {
 
     // 初始实例时，获取accessToken和ticket
     this.fetchAccessToken()
-    this.fetchTicket() // 这里构造函数不能await
+    this.fetchTicket() // 构造函数不能用异步await
   }
 
   async request(options) {
