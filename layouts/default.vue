@@ -2,7 +2,7 @@
   #app
     #main
       nuxt
-    v-nav
+    nNav
 </template>
 
 <script>
@@ -14,3 +14,5 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="sass" src='~static/sass/index.sass'></style>

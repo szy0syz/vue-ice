@@ -37,7 +37,7 @@ export default {
     // 映射 this.xxx 为 store.state.xxx
     ...mapState(['houses', 'characters', 'cities'])
   },
-  method: {
+  methods: {
     showHouse(item) {
       // 前端路由跳转到house，附带查询查询参数_id
       this.$router.push({
@@ -64,5 +64,3 @@ export default {
   }
 }
 </script>
-
-<style scoped lang='sass' src='~static/sass/index.sass'></style>
