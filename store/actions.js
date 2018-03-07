@@ -33,13 +33,13 @@ export default {
     return res
   },
 
-  async showHouse({ state }, _id) {
-    if(_id === state.currentHouse._id) return
+  async fetchHouse({ state }, _id) {
+    if (_id === state.currentHouse._id) return
 
     const res = await Services.fetchHouse(_id)
 
     state.currentHouse = res.data.data
-
+    console.log(res.data.data)
     return res
   }
 }

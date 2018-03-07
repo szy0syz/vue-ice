@@ -25,7 +25,7 @@ class Services {
   }
 
   fetchHouse(id) {
-    return axios.get(`${apiUrl}/wiki/houses/${id}`)
+    return axios.get(`${apiUrl}/wiki/houses?id=${id}`)
   }
 }
 

@@ -36,10 +36,9 @@ export default {
   },
   beforeCreate() {
     let id = this.$route.query.id
-    this.$store.dispatch('showHouse', id)
+    this.$store.dispatch('fetchHouse', id)
   }
 }
 </script>
 
 <style lang="sass" scoped src='static/sass/house.sass'></style>
-
