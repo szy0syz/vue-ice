@@ -9,16 +9,16 @@
       .title {{house.cname}}
       .body {{house.intro}}
       .title 主要角色
-      .item(v-for='(item, index) in house.swornMembers' :key='index')
+      .body(v-for='(item, index) in house.swornMembers' :key='index')
         .members
-          .img(:src='item.profile')
+          img(:src='item.profile')
           .desc
             .cname {{item.cname}}
             .intro {{item.text}}
     
     .house-history(v-for='(item, index) in house.sections' :key='index')
       .title {{item.title}}
-      .content(v-for='text in item.content') {{text}}
+      .body(v-for='text in item.content') {{text}}
 </template>
 
 <script>

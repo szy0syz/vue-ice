@@ -4,7 +4,7 @@
 
 .container
 
-  .focusHouse-media
+  .house-media
     overflow: hidden
     position: relative
     font-size: 0
@@ -12,7 +12,7 @@
     img
       width: 100%
     
-    .focusHouse-text
+    .desc
       width: 100%
       +border-box
       padding: 0 $spacing
@@ -30,7 +30,23 @@
       .name
         font-size: 2.2em
 
-  .focusHouse-body
+  .house-history
+    > *
+      width: 100%
+      margin-top: $spacing
+
+    .title
+      +font-dpr(25px)
+      padding-bottom: $spacing/3
+      border-bottom: 1px solid $grey-700
+    
+    .body
+      +font-dpr(17px)
+      margin: $spacing 0
+      text-indent: 2em
+      color: $grey-600 
+
+  .house-body
     padding: $spacing
     +border-box
 
@@ -39,12 +55,12 @@
         width: 100%
         margin-top: $spacing
      
-    .focusHouse-item-title 
+    .title 
       +font-dpr(25px)
       padding-bottom: $spacing/3
       border-bottom: 1px solid $grey-700
 
-    .focusHouse-item-body
+    .body
       +font-dpr(17px)
       margin: $spacing 0
       text-indent: 2em
@@ -53,7 +69,7 @@
       > p
         margin: 5px 0
 
-      .swornMembers
+      .members
         font-size: 0
         text-indent: 0
 
@@ -64,7 +80,7 @@
         img
           width: 30%
         
-        .swornMembers-body
+        .desc
           width: 65%
           padding-left: 5%
           +font-dpr(10px)
@@ -74,6 +90,6 @@
             color: $black
             margin-bottom: $spacing
 
-          .introduction
+          .desc
             font-size: 1.4em
             line-height: $spacing
