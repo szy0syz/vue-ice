@@ -1,21 +1,21 @@
 <template lang="pug">
   .container
     .house(ref='house')
-      .house-items(v-for='(item, index) in houses' :key='index' @click='showHouse(item)')
-        .house-text
+      .items(v-for='(item, index) in houses' :key='index' @click='showHouse(item)')
+        .desc
           .words {{ item.words }}
           .cname {{ item.name }}
           .name {{ item.cname }}
     
-    .character
+    .characters
       .title 主要人物
-      .container
-        .character-items(v-for='(item, index) in characters' :key='index' @click='showCharacter(item)')
+      .section
+        .items(v-for='(item, index) in characters' :key='index' @click='showCharacter(item)')
           img(:src='item.profile')
           .desc 
             .cname {{item.cname}}
             .name {{item.name}}
-            .palyedBy {{item.playedBy}}
+            .playedBy {{item.playedBy}}
     
     .city
       .city-title 维斯特洛
