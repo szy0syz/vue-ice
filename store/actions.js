@@ -39,7 +39,17 @@ export default {
     const res = await Services.fetchHouse(_id)
 
     state.currentHouse = res.data.data
-    console.log(res.data.data)
+
+    return res
+  },
+
+  async fetchCharacter({ state }, _id) {
+    if (_id === state.currentCharacter._id) return
+
+    const res = await Services.fetchCharacter(_id)
+
+    state.currentCharacter = res.data.data
+
     return res
   }
 }

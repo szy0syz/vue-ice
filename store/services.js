@@ -28,6 +28,10 @@ class Services {
     // return axios.get(`${apiUrl}/wiki/houses?id=${id}`)
     return axios.get(`${apiUrl}/wiki/houses/:id/`) // rap2的坑
   }
+
+  fetchCharacter() {
+    return axios.get(`${apiUrl}/wiki/character/:id/`)
+  }
 }
 
 export default new Services()
