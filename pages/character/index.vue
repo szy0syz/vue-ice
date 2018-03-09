@@ -16,7 +16,7 @@
       .intro
         p(v-for='item in character.intro') {{item}}
 
-      .skills
+      .stills
         img(v-for='(item, index) in character.images', :src='item', :key='index')
       
       .items(v-fro='item in character.sctions')

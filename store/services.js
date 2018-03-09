@@ -29,8 +29,8 @@ class Services {
     return axios.get(`${apiUrl}/wiki/houses/:id/`) // rap2的坑
   }
 
-  fetchCharacter() {
-    return axios.get(`${apiUrl}/wiki/character/:id/`)
+  fetchCharacter(id) {
+    return axios.get(`${apiUrl}/wiki/characters/:id/`)
   }
 }
 
