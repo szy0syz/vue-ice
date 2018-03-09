@@ -3,14 +3,14 @@
     nuxt-link(v-for='(item, index) in navList' :to='item.path' :key='index')
       div(v-if='index === 0')
         img(v-if='activeRoute !== item.name' src='~static/img/home.png')
-        img(v-else-if src='~static/img/home-selected.png')
+        img(v-else src='~static/img/home-selected.png')
       div(v-if='index === 1')
         img(v-if='activeRoute !== item.name' src='~static/img/shopping.png')
         img(v-else src='~static/img/shopping-selected.png')
       div(v-if='index === 2')
         img(v-if='activeRoute !== item.name' src='~static/img/user.png')
         img(v-else src='~static/img/user-selected.png')
-      p {{item.text}}
+      //- p {{item.text}}
 </template>
 
 <script>
