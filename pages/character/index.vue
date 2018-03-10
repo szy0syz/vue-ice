@@ -17,11 +17,11 @@
         p(v-for='item in character.intro') {{item}}
 
       .stills
-        img(v-for='(item, index) in character.images', :src='item', :key='index')
+        img(v-for='(item, index) in character.images' :src='item' :key='index')
       
-      .items(v-fro='item in character.sctions')
+      .items(v-for='item in character.sctions')
         .title {{item.title}}
-        .body(v-for='text in item.content') {{item}}
+        .body(v-for='text in item.content') {{text}}
 </template>
 
 <script>
