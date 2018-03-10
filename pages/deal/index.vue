@@ -27,9 +27,8 @@
 </template>
 
 <script>
-import cell from 'components/cell'
-import {mapState} from 'vuex'
-import { constants } from 'http2';
+import cell from '../../components/cell'
+import { mapState } from 'vuex'
 
 export default {
   head() {
@@ -37,7 +36,7 @@ export default {
       title: '购买页面'
     }
   },
-  data () {
+  data() {
     return {
       swiperConfig: {
         autoplay: 4000,
@@ -56,11 +55,11 @@ export default {
   },
   computed: {
     ...mapState({
-      'product': 'currentProduct'
+      product: 'currentProduct'
     })
   },
   methods: {
-    buyProduct (item) {
+    buyProduct(item) {
       console.log(item)
       console.log('~~Will to but it~~~')
     }
