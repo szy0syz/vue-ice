@@ -23,7 +23,7 @@
             li(v-for='item in attentions') {{item}}
 
     .product-footer
-      span(@click='buyProduct') 购买  
+      span(@click='buyProduct(product)') 购买
 </template>
 
 <script>
