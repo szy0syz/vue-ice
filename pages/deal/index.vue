@@ -1,7 +1,7 @@
 <template lang="pug">
   .container
     .product
-      .swiper(v-swiper='swiperConfig')
+      .swiper(v-swiper:jSwiper='swiperConfig')
         .swiper-wrapper
           .swiper-slide(v-for='item in product.images')
             img(:src='item')
@@ -42,7 +42,10 @@ export default {
         autoplay: 4000,
         direction: 'horizontal',
         loop: true,
-        pagination: '.swiper-pagination'
+        pagination: {
+          el: '.swiper-pagination',
+          dynamicBullets: true
+        }
       },
 
       attentions: [

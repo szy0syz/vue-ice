@@ -14,8 +14,8 @@ export default {
 </script>
 
 <style scoped lang="sass">
-@import '../static/sass/color'
-@import '../static/sass/mixin'
+@import '~static/sass/color'
+@import '~static/sass/mixin'
 
 .cell
   width: 100%
