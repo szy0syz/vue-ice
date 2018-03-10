@@ -40,6 +40,10 @@ class Services {
   fetchProduct(id) {
     return axios.get(`${apiUrl}/wiki/product/:id/`)
   }
+
+  fetchUserAndOrders() {
+    return axios.get(`http://rap2api.taobao.org/app/mock/4970/GET//api/user`)
+  }
 }
 
 export default new Services()

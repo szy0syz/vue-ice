@@ -6,6 +6,7 @@ import mutations from './mutations'
 const createStore = () => {
   return new Vuex.Store({
     state: {
+      user: null,
       houses: [],
       cities: [],
       products: [],
