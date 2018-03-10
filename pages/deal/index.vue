@@ -9,23 +9,25 @@
         .swiper-pagination.swiper-pagination-bullets
 
       .content
-        span.main-price {{product.price.toFixed(2) - product.price.toFixed(2).substr(-3)}}
-        span.other-price {{product.price.toFixed(2).substr(-3)}}
+        .price(v-if='product.price')
+          span.main-price {{product.price.toFixed(2) - product.price.toFixed(2).substr(-3)}}
+          span.other-price {{product.price.toFixed(2).substr(-3)}}
       
-      .intro {{product.intro}}
-      .info
-        cell(v-for='(item, index) in product.parameters' :key='index' :title='item.key' :content='item.value')
-      .attentions
-        .title 购买提示
-        ol
-          li(v-for='item in attentions') {{item}}
+        .name {{product.name}}
+        .intro {{product.intro}}
+        .info
+          cell(v-for='(item, index) in product.parameters' :key='index' :title='item.key' :content='item.value')
+        .attentions
+          .title 购买提示
+          ol
+            li(v-for='item in attentions') {{item}}
 
     .product-footer
       span(@click='buyProduct') 购买  
 </template>
 
 <script>
-import cell from `~components/cell`
+import cell from 'components/cell'
 import {mapState} from 'vuex'
 import { constants } from 'http2';
 
@@ -53,18 +55,19 @@ export default {
     }
   },
   computed: {
-    ...mapState([
-      'product'
-    ])
+    ...mapState({
+      'product': 'currentProduct'
+    })
   },
   methods: {
     buyProduct (item) {
       console.log(item)
-      console.log('~~Will to but it!!!')
+      console.log('~~Will to but it~~~')
     }
   },
   beforeCreate() {
-    this.$store.dispatch('fetchProducts')
+    const id = this.$route.query.id
+    this.$store.dispatch('fetchProduct', id)
   },
   components: {
     cell
