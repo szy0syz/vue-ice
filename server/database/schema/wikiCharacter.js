@@ -3,23 +3,18 @@
 const mongoose = require('mongoose')
 const Mixed = mongoose.Schema.Types.Mixed
 
-const WikiHouseSchema = new mongoose.Schema({
+const WikicharacterSchema = new mongoose.Schema({
+  _id: String, // ref
+  wikiId: Number,
   name: String,
   canme: String,
-  words: String,
-  intro: String,
-  cover: String,
-  wikiId: Number,
+  playBy: String,
+  profile: String,
+  images: [String],
+  umId: String,
+  chId: String,
   sections: Mixed,
-  swornMembers: [
-    {
-      character: {
-        type: String,
-        ref: 'WikiCharacter',
-        text: String
-      }
-    }
-  ],
+  intro: String,
   meta: {
     createdAt: {
       type: Date,
@@ -33,7 +28,7 @@ const WikiHouseSchema = new mongoose.Schema({
 })
 
 // mongoose的一个中间件，每次往数据库写入前执行这个中间件
-WikiHouseSchema.pre('save', function (next) {
+WikicharacterSchema.pre('save', function (next) {
   if (this.isNew) {
     this.meta.createdAt = this.meta.updatedAt = Date.now()
   } else {
@@ -45,4 +40,4 @@ WikiHouseSchema.pre('save', function (next) {
 
 // WikiHouseSchema.statics = {}
 
-mongoose.model('WikiHouse', WikiHouseSchema)
+mongoose.model('Wikicharacter', WikicharacterSchema)
