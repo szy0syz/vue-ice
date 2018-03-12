@@ -1,39 +1,39 @@
-import {controller, get, post} from '../decorator/router'
+import { controller, get, post } from '../decorator/router'
 import config from '../config'
 import reply from '../wechat/reply'
 import wechatMiddle from '../wechat-lib/middleware'
 import { signature, redirect, oauth } from '../controllers/wechat'
-import { resolve } from 'path'
+// import { resolve } from 'path'
 
-@controller('/wechat')
+@controller('')
 export class WechatController {
-  @get('wechat-hear')
-  async wechatHear (ctx, next) {
+  @get('/wechat-hear')
+  async wechatHear(ctx, next) {
     const middle = wechatMiddle(config.wechat, reply)
     const body = await middle(ctx, next)
 
     ctx.body = body
   }
 
-  @post('wechat-hear')
-  async wechatPostHear (ctx, next) {
+  @post('/wechat-hear')
+  async wechatPostHear(ctx, next) {
     const middle = wechatMiddle(config.wechat, reply)
     const body = await middle(ctx, next)
 
     ctx.body = body
   }
 
-  @get('wechat-signature')
+  @get('/wechat-signature')
   async wechatSignature(ctx, next) {
     await signature(ctx, next)
   }
 
-  @get('wechat-redirect')
+  @get('/wechat-redirect')
   async wechatRedirect(ctx, next) {
     await redirect(ctx, next)
   }
 
-  @get('wechat-oauth')
+  @get('/wechat-oauth')
   async wechatOAuth(ctx, next) {
     await oauth(ctx, next)
   }
