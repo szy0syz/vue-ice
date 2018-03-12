@@ -40,4 +40,4 @@ WikicharacterSchema.pre('save', function (next) {
 
 // WikiHouseSchema.statics = {}
 
-mongoose.model('Wikicharacter', WikicharacterSchema)
+mongoose.model('WikiCharacter', WikicharacterSchema)
