@@ -22,7 +22,7 @@ export default class Route {
 
     for (let [ conf, controller ] of routersMap) {
       const controllers = isArray(controller)
-      let prefixPath = conf.target(symbolPrefix)
+      let prefixPath = conf.target[symbolPrefix]
 
       if (prefixPath) prefixPath = normalizePath(prefixPath)
 
@@ -31,7 +31,7 @@ export default class Route {
       this.router[conf.method](routerPath, ...controllers)
     }
 
-    this.app.use(this.router.routers())
+    this.app.use(this.router.routes())
     this.app.use(this.router.allowedMethods())
   }
 }
