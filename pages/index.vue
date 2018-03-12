@@ -6,6 +6,8 @@
           .words {{ item.words }}
           .cname {{ item.name }}
           .name {{ item.cname }}
+        .house-flag
+          img(:src='imageCDN + item.cname + ".png"')
     
     .characters
       .title 主要人物
@@ -35,7 +37,7 @@ export default {
   },
   computed: {
     // 映射 this.xxx 为 store.state.xxx
-    ...mapState(['houses', 'characters', 'cities'])
+    ...mapState(['houses', 'characters', 'cities', 'imageCDN'])
   },
   methods: {
     showHouse(item) {

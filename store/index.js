@@ -13,7 +13,8 @@ const createStore = () => {
       characters: [],
       currentHouse: {},
       currentProduct: [],
-      currentCharacter: {}
+      currentCharacter: {},
+      imageCDN: 'http://osmai097y.bkt.clouddn.com'
     },
     getters,
     actions,

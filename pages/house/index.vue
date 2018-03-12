@@ -4,7 +4,7 @@
       .desc
         .words {{house.words}}
         .name {{house.name}}
-    
+          
     .house-body
       .title {{house.cname}}
       .body {{house.intro}}
