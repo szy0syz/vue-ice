@@ -1,13 +1,17 @@
-import WikiHouse from '../database/schema/wikiHouse'
+import mongoose from 'mongoose'
 import { controller, get } from '../decorator/router'
+
+const WikiHouse = mongoose.model('WikiHouse')
+// const WikiCharacter = mongoose.model('WikiCharacter')
 
 @controller('/wiki')
 export class WechatController {
   // 获取所有家族数据
   @get('/houses')
   async getHouses(ctx, next) {
-    const houses = await WikiHouse.find({})
-      .pupulate({
+    let houses = await WikiHouse
+      .find({})
+      .populate({
         path: 'swornMembers.character',
         select: '_id name cname profile'
       })

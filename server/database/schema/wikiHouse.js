@@ -5,7 +5,7 @@ const Mixed = mongoose.Schema.Types.Mixed
 
 const WikiHouseSchema = new mongoose.Schema({
   name: String,
-  canme: String,
+  cname: String,
   words: String,
   intro: String,
   cover: String,

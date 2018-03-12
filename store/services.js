@@ -13,24 +13,24 @@ class Services {
   }
 
   fetchHouses() {
-    return axios.get(`${apiUrl}/wiki/houses`)
+    return axios.get(`${baseUrl}/wiki/houses`)
   }
 
   fetchCharacters() {
-    return axios.get(`${apiUrl}/wiki/characters`)
+    return axios.get(`${baseUrl}/wiki/characters`)
   }
 
   fetchCities() {
-    return axios.get(`${apiUrl}/wiki/cities`)
+    return axios.get(`${baseUrl}/wiki/cities`)
   }
 
   fetchHouse(id) {
     // return axios.get(`${apiUrl}/wiki/houses?id=${id}`)
-    return axios.get(`${apiUrl}/wiki/houses/:id/`) // rap2的坑
+    return axios.get(`${baseUrl}/wiki/houses/:id`) // rap2的坑
   }
 
   fetchCharacter(id) {
-    return axios.get(`${apiUrl}/wiki/character/:id`)
+    return axios.get(`${baseUrl}/wiki/character/:id`)
   }
 
   fetchProducts() {
