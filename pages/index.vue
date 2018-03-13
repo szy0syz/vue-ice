@@ -111,15 +111,15 @@ export default {
         query: {
           id: item._id
         }
-      })
+      });
     }
   },
   beforeCreate() {
     // 创建页面前加载数据
-    this.$store.dispatch("fetchHouses")
-    this.$store.dispatch("fetchCharacters")
+    this.$store.dispatch("fetchHouses");
+    this.$store.dispatch("fetchCharacters");
   }
-}
+};
 </script>
 
 <style scoped lang="sass" src='static/sass/index.sass'></style>
