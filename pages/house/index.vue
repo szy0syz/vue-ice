@@ -11,7 +11,7 @@
       .title 主要角色
       .body(v-for='(item, index) in house.swornMembers' :key='index')
         .members
-          img(:src='item.profile')
+          img(:src='imageCDN + item.profile + "?imageView2/1/w/280/h/440/format/jpg/q/75|imageslim"')
           .desc
             .cname {{item.cname}}
             .intro {{item.text}}
@@ -36,7 +36,7 @@ export default {
   },
   beforeCreate() {
     let id = this.$route.query.id
-    console.log('~~~', id)
+
     this.$store.dispatch('fetchHouse', id)
   }
 }

@@ -4,17 +4,24 @@ const mongoose = require('mongoose')
 const Mixed = mongoose.Schema.Types.Mixed
 
 const WikicharacterSchema = new mongoose.Schema({
-  _id: String, // ref
-  wikiId: Number,
+  _id: String,
   name: String,
-  canme: String,
-  playBy: String,
+  cname: String,
+  playedBy: String,
   profile: String,
-  images: [String],
-  umId: String,
+  allegiances: [
+    String
+  ],
+  images: [
+    String
+  ],
+  nmId: String,
   chId: String,
   sections: Mixed,
-  intro: String,
+  intro: [
+    String
+  ],
+  wikiId: Number,
   meta: {
     createdAt: {
       type: Date,

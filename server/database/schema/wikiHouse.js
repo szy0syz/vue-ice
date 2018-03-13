@@ -13,11 +13,8 @@ const WikiHouseSchema = new mongoose.Schema({
   sections: Mixed,
   swornMembers: [
     {
-      character: {
-        type: String,
-        ref: 'WikiCharacter',
-        text: String
-      }
+      character: { type: String, ref: 'WikiCharacter' },
+      text: String
     }
   ],
   meta: {

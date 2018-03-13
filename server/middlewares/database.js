@@ -12,7 +12,7 @@ fs
   .forEach(file => require(resolve(models, file)))
 
 const formateData = R.map(i => {
-  i._id = i.umId
+  i._id = i.nmId
 
   return i
 })
