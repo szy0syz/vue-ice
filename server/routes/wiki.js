@@ -25,12 +25,11 @@ export class WechatController {
 
   @get('/houses/:_id')
   async getHouse(ctx, next) {
-    const { params } = ctx
-    const { _id } = params
-
+    const { _id } = ctx.params
+    console.log(ctx.params)
     if (!_id) return (ctx.body = { success: false, err: 'id is required' })
 
-    const data = await WikiHouse.findOne({ _id }).pupulate({
+    const data = await WikiHouse.findOne({ _id }).populate({
       path: 'swornMembers.character',
       select: '_id name cname nmid'
     })
@@ -42,7 +41,7 @@ export class WechatController {
     }
   }
 
-  /////////////////////Characters
+  // -----------------Characters
 
   @get('/characters')
   async getCharacters(ctx, next) {
@@ -61,15 +60,14 @@ export class WechatController {
 
   @get('/characters/:_id')
   async getCharacter(ctx, next) {
-    const { params } = ctx
-    const { _id } = params
+    const { _id } = ctx.params
 
     if (!_id) return (ctx.body = { success: false, err: 'id is required' })
 
-    const house = await WikiCharacter.findOne({ _id }).exec()
+    const data = await WikiCharacter.findOne({ _id }).exec()
 
     ctx.body = {
-      data: house,
+      data,
       success: true
     }
   }

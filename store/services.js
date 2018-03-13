@@ -21,11 +21,11 @@ class Services {
   }
 
   fetchHouse(id) {
-    return axios.get(`${baseUrl}/wiki/houses/:id`)
+    return axios.get(`${baseUrl}/wiki/houses/${id}`)
   }
 
   fetchCharacter(id) {
-    return axios.get(`${baseUrl}/wiki/character/:id`)
+    return axios.get(`${baseUrl}/wiki/character/${id}`)
   }
 
   fetchProducts() {
@@ -33,7 +33,7 @@ class Services {
   }
 
   fetchProduct(id) {
-    return axios.get(`${apiUrl}/wiki/product/:id/`)
+    return axios.get(`${apiUrl}/wiki/product/{id}`)
   }
 
   fetchUserAndOrders() {

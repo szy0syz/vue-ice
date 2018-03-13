@@ -67,7 +67,7 @@ export default {
     const res = await Services.fetchUserAndOrders()
 
     state.user = res.data.data
-    console.log(res.data.data)
+
     return res
   }
 }
