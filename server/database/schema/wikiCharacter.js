@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const Mixed = mongoose.Schema.Types.Mixed
 
 const WikicharacterSchema = new mongoose.Schema({
-  _id: String,
+  _id: String, // 这里本该ObjectId的，但我们手动指定String，在database倒数数据时手动绑定了nmId给它！
   name: String,
   cname: String,
   playedBy: String,

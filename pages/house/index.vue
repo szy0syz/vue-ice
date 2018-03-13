@@ -13,8 +13,8 @@
         .members
           img(:src='imageCDN + item.profile + "?imageView2/1/w/280/h/440/format/jpg/q/75|imageslim"')
           .desc
-            .cname {{item.cname}}
-            .intro {{item.text}}
+            .cname {{item.character.cname}}
+            .intro {{item.character.name}}
     
     .house-history(v-for='(item, index) in house.sections' :key='index')
       .title {{item.title}}
@@ -31,7 +31,8 @@ export default {
   },
   computed: {
     ...mapState({
-      house: 'currentHouse'
+      house: 'currentHouse',
+      imageCDN: 'imageCDN'
     })
   },
   beforeCreate() {
