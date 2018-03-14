@@ -2,15 +2,15 @@
   #app
     #main
       nuxt
-    nNav
+    v-nav
 </template>
 
 <script>
-import nNav from '../components/nav.vue'
+import vNav from '../components/nav.vue'
 
 export default {
   components: {
-    nNav
+    vNav
   }
 }
 </script>
