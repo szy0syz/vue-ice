@@ -25,7 +25,7 @@ class Services {
   }
 
   fetchCharacter(id) {
-    return axios.get(`${baseUrl}/wiki/character/${id}`)
+    return axios.get(`${baseUrl}/wiki/characters/${id}`)
   }
 
   fetchProducts() {
