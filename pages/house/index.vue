@@ -1,6 +1,7 @@
 <template lang="pug">
   .container
     .house-media
+      img(v-if='house.cname' :src='imageCDN + house.cname + ".png?imageView2/1/w/750/h/460/format/jpg/q/90|imageslim"')
       .desc
         .words {{house.words}}
         .name {{house.name}}
@@ -22,7 +23,7 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 export default {
   head() {
     return {

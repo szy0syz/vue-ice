@@ -31,7 +31,7 @@ export class WechatController {
 
     const data = await WikiHouse.findOne({ _id }).populate({
       path: 'swornMembers.character',
-      select: '_id name cname nmid'
+      select: 'name cname profile nmId'
     })
     .exec()
 
