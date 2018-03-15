@@ -1,6 +1,6 @@
 import { parse as urlParse } from 'url'
 import { parse as queryParse } from 'querystring'
-import * as api from '../api'
+import api from '../api'
 import config from '../config'
 
 export async function signature(ctx, next) {

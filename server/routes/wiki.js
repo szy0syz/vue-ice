@@ -1,21 +1,14 @@
 import mongoose from 'mongoose'
+import api from '../api'
 import { controller, get } from '../decorator/router'
 
-const WikiHouse = mongoose.model('WikiHouse')
-const WikiCharacter = mongoose.model('WikiCharacter')
 
 @controller('/wiki')
 export class WechatController {
   // 获取所有家族数据
   @get('/houses')
   async getHouses(ctx, next) {
-    let data = await WikiHouse
-      .find({})
-      .populate({
-        path: 'swornMembers.character',
-        select: '_id name cname profile'
-      })
-      .exec()
+    let data = await api.wiki.getHouses()
 
     ctx.body = {
       data,
@@ -26,14 +19,10 @@ export class WechatController {
   @get('/houses/:_id')
   async getHouse(ctx, next) {
     const { _id } = ctx.params
-    console.log(ctx.params)
+
     if (!_id) return (ctx.body = { success: false, err: 'id is required' })
 
-    const data = await WikiHouse.findOne({ _id }).populate({
-      path: 'swornMembers.character',
-      select: 'name cname profile nmId'
-    })
-    .exec()
+    const data = await api.wiki.getHouse(_id)
 
     ctx.body = {
       data,
@@ -47,10 +36,7 @@ export class WechatController {
   async getCharacters(ctx, next) {
     let {limit = 20} = ctx.query
 
-    const data = await WikiCharacter
-      .find({})
-      .limit(Number(limit))
-      .exec()
+    const data = await api.wiki.getCharacters(limit)
 
     ctx.body = {
       data,
@@ -64,7 +50,7 @@ export class WechatController {
 
     if (!_id) return (ctx.body = { success: false, err: 'id is required' })
 
-    const data = await WikiCharacter.findOne({ _id }).exec()
+    const data = await api.wiki.getCharacter(_id)
 
     ctx.body = {
       data,
