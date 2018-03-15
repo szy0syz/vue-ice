@@ -15,7 +15,6 @@ export async function getHouses() {
   return data
 }
 
-
 export async function getHouse(_id) {
   const data = await WikiHouse.findOne({ _id }).populate({
     path: 'swornMembers.character',
@@ -42,4 +41,3 @@ export async function getCharacter(_id) {
 
   return data
 }
-

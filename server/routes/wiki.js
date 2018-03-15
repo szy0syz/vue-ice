@@ -1,7 +1,5 @@
-import mongoose from 'mongoose'
 import api from '../api'
 import { controller, get } from '../decorator/router'
-
 
 @controller('/wiki')
 export class WechatController {
