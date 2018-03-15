@@ -1,7 +1,7 @@
 <template lang="pug">
   .container
     .house-media
-      img(v-if='house.cname' :src='imageCDN + house.cname + ".png?imageView2/1/w/750/h/460/format/jpg/q/90|imageslim"')
+      img(v-if='house.cname' :src='imageCDN + house.cname + ".png"')
       .desc
         .words {{house.words}}
         .name {{house.name}}
@@ -11,11 +11,11 @@
       .body {{house.intro}}
       .title 主要角色
       .body(v-for='(item, index) in house.swornMembers' :key='index')
-        .members
-          img(:src='imageCDN + item.character.profile + "?imageView2/1/w/280/h/440/format/jpg/q/75|imageslim"')
+        .members(v-if='item.character')
+          img(:src='imageCDN + item.character.profile + "?imageView2/1/w/280/h/440/format/jpg/q/75|imageslim"' @click='showCharacter(item)')
           .desc
             .cname {{item.character.cname}}
-            .intro {{item.character.name}}
+            .intro {{item.text}}
     
     .house-history(v-for='(item, index) in house.sections' :key='index')
       .title {{item.title}}
@@ -35,6 +35,17 @@ export default {
       house: 'currentHouse',
       imageCDN: 'imageCDN'
     })
+  },
+  methods: {
+    showCharacter(item) {
+      console.log(item)
+      this.$router.push({
+        path: '/character',
+        query: {
+          id: item.character.nmId
+        }
+      })
+    }
   },
   beforeCreate() {
     let id = this.$route.query.id
