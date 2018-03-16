@@ -3,7 +3,7 @@ import R from 'ramda'
 import api from '../api'
 import { controller, get, post, put, del } from '../decorator/router'
 
-@controller('/product')
+@controller('/api')
 export class ProductController {
   // 获取所有家族数据
   @get('/products')

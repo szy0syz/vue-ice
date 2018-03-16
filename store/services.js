@@ -29,11 +29,11 @@ class Services {
   }
 
   fetchProducts() {
-    return axios.get(`${apiUrl}/wiki/products`)
+    return axios.get(`${apiUrl}/api/products`)
   }
 
   fetchProduct(id) {
-    return axios.get(`${apiUrl}/wiki/product/{id}`)
+    return axios.get(`${apiUrl}/api/products/{id}`)
   }
 
   fetchUserAndOrders() {

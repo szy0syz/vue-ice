@@ -1,4 +1,5 @@
 import Services from './services'
+import axios from 'axios';
 
 export default {
   getWechatSignature({ commit }, url) {
@@ -12,7 +13,7 @@ export default {
   async fetchHouses({ state }) {
     const res = await Services.fetchHouses()
 
-    state.houses = res.data.data
+    state.houses = res.data.data/admin
 
     return res
   },
@@ -69,5 +70,23 @@ export default {
     state.user = res.data.data
 
     return res
+  },
+
+  // 创建宝贝
+  async saveProduct({state, dispatch}, product) {
+    await axios.post('/api/products', product)
+
+    let res = await dispatch('fapietchProducts')
+
+    return res.data.data
+  },
+
+  // 更新宝贝
+  async updateProduct({state, dispatch}, product) {
+    await axios.put('/api/products', product)
+
+    let res = await dispatch('fetchProducts')
+
+    return res.data.data
   }
 }
