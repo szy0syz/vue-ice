@@ -12,10 +12,11 @@ header
   background-color: #ff6600
   color: #fff
   align-items: center
-
+  display: flex
 
   .menu
     cursor: pointer
     margin-left: 20px
     font-size: 26px
+    margin: auto 12px
 </style>
