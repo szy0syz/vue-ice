@@ -69,7 +69,7 @@ export class ProductController {
 
     if (!_id) return (ctx.body = { success: false, err: 'id is required' })
 
-    let product = api.product.getProduct(_id)
+    let product = await api.product.getProduct(_id)
 
     if (!product) {
       return (ctx.body = {
@@ -79,8 +79,8 @@ export class ProductController {
     }
 
     product.title = xss(body.title)
-    product.price = xss(body.title)
-    product.intro = xss(body.title)
+    product.price = xss(body.price)
+    product.intro = xss(body.intro)
     product.images = R.map(xss)(body.images)
     product.parameters = R.map(item => ({
       key: xss(item.key),

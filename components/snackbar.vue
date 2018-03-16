@@ -1,7 +1,7 @@
 <template lang='pug'>
 transition(name=swing)
   .snackbar(v-if='open')
-    snackbar-content
+    .snackbar-content
       slot(name='body')
       slot(name='action', @click='emit("update:open", false)')
 </template>

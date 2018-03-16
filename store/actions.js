@@ -76,17 +76,19 @@ export default {
   async saveProduct({state, dispatch}, product) {
     await axios.post('/api/products', product)
 
-    let res = await dispatch('fapietchProducts')
+    let res = await dispatch('fetchProducts')
 
     return res.data.data
   },
 
   // 更新宝贝
-  async updateProduct({state, dispatch}, product) {
+  async putProduct({state, dispatch}, product) {
+    console.log(product)
     await axios.put('/api/products', product)
 
     let res = await dispatch('fetchProducts')
-
+    console.log('~~~~~')
+    console.log(res)
     return res.data.data
   }
 }

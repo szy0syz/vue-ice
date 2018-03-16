@@ -22,7 +22,7 @@
             td
               p(v-for='parameter in item.parameters') {{parameter.key}} {{parameter.value}}
             td
-              button.btn(@click='editPriduct(item)').material-icon edit
+              button.btn(@click='editProduct(item)').material-icon edit
   .edit-product(:class='{active: editing}')
     .edit-header
       .material-icon edit
@@ -49,7 +49,7 @@
                 .material-icon remove
     .edit-footer
       button.btn.save(@click='saveEdited' v-if='!isProduct') 创建宝贝
-      button.btn.save(@click='saveEdited' v-if='!isProduct') 保存宝贝
+      button.btn.save(@click='saveEdited' v-if='isProduct') 保存宝贝
       .btn.add-parameter(@click='addParameter')
         .material-icon add
         | 添加参数
@@ -83,7 +83,7 @@ export default {
     }
   },
 
-  async create() {
+  async created() {
     this.$store.dispatch('fetchProducts')
   },
 

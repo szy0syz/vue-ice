@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const baseUrl = ''
-const apiUrl = 'http://rap2api.taobao.org/app/mock/4970/GET/'
+// const apiUrl = 'http://rap2api.taobao.org/app/mock/4970/GET/'
 
 class Services {
   getWechatSignature(url) {
@@ -29,11 +29,11 @@ class Services {
   }
 
   fetchProducts() {
-    return axios.get(`${apiUrl}/api/products`)
+    return axios.get(`${baseUrl}/api/products`)
   }
 
   fetchProduct(id) {
-    return axios.get(`${apiUrl}/api/products/{id}`)
+    return axios.get(`${baseUrl}/api/products/{id}`)
   }
 
   fetchUserAndOrders() {
