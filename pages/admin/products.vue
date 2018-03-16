@@ -11,18 +11,18 @@
           th 参数
           th 修改
         
-        tbody
-          tr(v-for='item in products')
+      tbody
+        tr(v-for='item in products')
+          td
+            .img(v-for='image in item.images')
+              img(:src='imageCDN + image + "?imageView2/1/format/jpg/q/75/imageslim"')
+            td {{item.title}}
+            td {{item.price}}
+            td(v-html='item.intro')
             td
-              .img(v-for='image in item.images')
-                img(:src='imageCDN + image + "?imageView2/1/format/jpg/q/75/imageslim"')
-              td {{item.title}}
-              td {{item.price}}
-              td(v-for='item.intro')
-              td
-                p(v-for='parameter in item.parameters') {{parameter.key}} {{parameter.value}}
-              td
-                button.btn(@click='editPriduct(item)').material-icon edit
+              p(v-for='parameter in item.parameters') {{parameter.key}} {{parameter.value}}
+            td
+              button.btn(@click='editPriduct(item)').material-icon edit
   .edit-product(:class='{active: editing}')
     .edit-header
       .material-icon edit
@@ -48,11 +48,11 @@
               .remove(@click='removeParameter(index)')
                 .material-icon remove
     .edit-footer
-      button.btn.save(@click='saveEdited' v-if='!isProduce') 创建宝贝
+      button.btn.save(@click='saveEdited' v-if='!isProduct') 创建宝贝
       button.btn.save(@click='saveEdited' v-if='!isProduct') 保存宝贝
       .btn.add-parameter(@click='addParameter')
         .material-icon add
-        |  添加参数
+        | 添加参数
   .float-btn(@click='createProduct')
     .material-icon add
   v-snackbar(:open.sync='openSnackbar')
@@ -60,16 +60,15 @@
 </template>
 
 <script>
-import { mapState } from "vuex"
-import axios from "axios"
-import vSnackbar from "~components/snackbar"
+import { mapState } from 'vuex'
+import vSnackbar from '../../components/snackbar.vue'
 
 export default {
-  layout: "admin",
+  layout: 'admin',
   head() {
     return {
-      title: "宝贝列表"
-    };
+      title: '宝贝列表'
+    }
   },
 
   data() {
@@ -81,27 +80,27 @@ export default {
         parameters: []
       },
       editing: false
-    };
+    }
   },
 
   async create() {
-    this.$store.dispatch("fetchProducts");
+    this.$store.dispatch('fetchProducts')
   },
 
   computed: {
-    ...mapState(["imageCDN", "products"])
+    ...mapState(['imageCDN', 'products'])
   },
 
   methods: {
     editedIntro(e) {
-      let html = e.target.value;
-      html = html.repalce("/\n/g", "<br />"); // 正则全局替换换行符为html br
-      this.edited.intro = html;
+      let html = e.target.value
+      html = html.replace('/\n/g', '<br />') // 正则全局替换换行符为html br
+      this.edited.intro = html
     },
-    editProduct() {
-      this.edited = item;
-      this.isProduct = true;
-      this.editing = true;
+    editProduct(item) {
+      this.edited = item
+      this.isProduct = true
+      this.editing = true
     },
 
     createProduct() {
@@ -109,42 +108,41 @@ export default {
       this.edited = {
         images: [],
         parameters: []
-      };
+      }
 
-      this.isProduct = false;
-      this.editing = true;
+      this.isProduct = false
+      this.editing = true
     },
 
     async saveEdited() {
       this.isProduct // 为true时更新、为false时创建
-        ? await this.$store.dispatch("putProduct", this.edited)
-        : await this.$store.dispatch("saveProduct", this.edited);
+        ? await this.$store.dispatch('putProduct', this.edited)
+        : await this.$store.dispatch('saveProduct', this.edited)
 
-      this.openSnackbar = true;
-      this.isProduct = false;
+      this.openSnackbar = true
+      this.isProduct = false
       this.edited = {
         images: [],
         parameters: []
-      };
-      this.editing = !this.editing;
+      }
+      this.editing = !this.editing
     },
 
     addParameter() {
       this.edited.parameters.push({
-        key: "",
-        value: ""
-      });
+        key: '',
+        value: ''
+      })
     },
 
     removeParameter(index) {
-      this.editde.parameters.splice(index, 1);
+      this.edited.parameters.splice(index, 1)
     }
   },
 
   components: {
     vSnackbar
   }
-};
+}
 </script>
-<style lang="sass" src='~static/sass/admin.sass'></style>
-
+<style lang="sass" src='static/sass/admin.sass'></style>

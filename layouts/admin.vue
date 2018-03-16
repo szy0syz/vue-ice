@@ -22,4 +22,3 @@ export default {
 #container
   display: flex
 </style>
-

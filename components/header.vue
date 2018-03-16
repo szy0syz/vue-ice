@@ -19,4 +19,3 @@ header
     margin-left: 20px
     font-size: 26px
 </style>
-

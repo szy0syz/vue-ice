@@ -15,17 +15,16 @@ export default {
   },
 
   watch: {
-    'open': function (newVal, oldVal) {
+    open: function (newVal, oldVal) {
       if (newVal) {
         let timer = setTimeout(() => {
           this.$emit('update:open', false)
           clearTimeout(timer)
-        }, 3*1000)
+        }, 3 * 1000)
       }
     }
   }
 }
 </script>
 
-
-<style lang="sass" src='~static/sass/snackbar.sass'></style>
+<style lang="sass" src='static/sass/snackbar.sass'></style>
