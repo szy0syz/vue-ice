@@ -60,16 +60,16 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import axios from 'axios'
-import vSnackbar from '~components/snackbar'
+import { mapState } from "vuex"
+import axios from "axios"
+import vSnackbar from "~components/snackbar"
 
 export default {
-  layout: 'admin',
+  layout: "admin",
   head() {
     return {
-      title: '宝贝列表'
-    }
+      title: "宝贝列表"
+    };
   },
 
   data() {
@@ -81,58 +81,70 @@ export default {
         parameters: []
       },
       editing: false
-    }
+    };
   },
 
   async create() {
-    this.$store.dispatch('fetchProducts')
+    this.$store.dispatch("fetchProducts");
   },
 
   computed: {
-    ...mapState(['imageCDN', 'products'])
+    ...mapState(["imageCDN", "products"])
   },
 
   methods: {
     editedIntro(e) {
-      let html = e.target.value
-      html = html.repalce('/\n/g', '<br />') // 正则全局替换换行符为html br
-      this.edited.intro = html
+      let html = e.target.value;
+      html = html.repalce("/\n/g", "<br />"); // 正则全局替换换行符为html br
+      this.edited.intro = html;
+    },
+    editProduct() {
+      this.edited = item;
+      this.isProduct = true;
+      this.editing = true;
+    },
+
+    createProduct() {
+      // 新建宝贝，清除原宝贝数据
+      this.edited = {
+        images: [],
+        parameters: []
+      };
+
+      this.isProduct = false;
+      this.editing = true;
+    },
+
+    async saveEdited() {
+      this.isProduct // 为true时更新、为false时创建
+        ? await this.$store.dispatch("putProduct", this.edited)
+        : await this.$store.dispatch("saveProduct", this.edited);
+
+      this.openSnackbar = true;
+      this.isProduct = false;
+      this.edited = {
+        images: [],
+        parameters: []
+      };
+      this.editing = !this.editing;
+    },
+
+    addParameter() {
+      this.edited.parameters.push({
+        key: "",
+        value: ""
+      });
+    },
+
+    removeParameter(index) {
+      this.editde.parameters.splice(index, 1);
     }
   },
 
-  editProduct () {
-    this.edited = item
-    this.isProduct = true
-    this.editing = true
-  },
-
-  createProduct () {
-    // 新建宝贝，清除原宝贝数据
-    this.edited = {
-      images: [],
-      parameters: []
-    }
-
-    this.isProduct = false
-    this.editing = true
-  },
-
-  async saveEdited () {
-    this.isProduct // 为true时更新、为false时创建
-    ? await this.$store.dispatch('putProduct', this.edited)
-    : await this.$store.dispatch('saveProduct', this.edited)
-
-    this.openSnackbar = true
-    this.isProduct = false
-    this.edited = {
-      images: [],
-      parameters: []
-    }
-    this.editing = !this.editing
+  components: {
+    vSnackbar
   }
-}
+};
 </script>
-<style lang="sass">
-
-</style>
+<style lang="sass" src='~static/sass/admin.sass'></style>
 
