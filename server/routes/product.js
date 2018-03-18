@@ -65,7 +65,8 @@ export class ProductController {
   @put('/products')
   async putProduct(ctx, next) {
     const body = ctx.request.body
-    const { _id } = ctx.params
+
+    const { _id } = body
 
     if (!_id) return (ctx.body = { success: false, err: 'id is required' })
 
@@ -74,15 +75,15 @@ export class ProductController {
     if (!product) {
       return (ctx.body = {
         success: false,
-        err: 'product not exist'
+        err: 'product is not exist'
       })
     }
 
     product.title = xss(body.title)
     product.price = xss(body.price)
     product.intro = xss(body.intro)
-    product.images = R.map(xss)(body.images)
-    product.parameters = R.map(item => ({
+    product.images = body.images && R.map(xss)(body.images)
+    product.parameters = body.parameters && R.map(item => ({
       key: xss(item.key),
       value: xss(item.value)
     }))(body.parameters)
@@ -101,17 +102,22 @@ export class ProductController {
     }
   }
 
-  @del('/products')
+  @del('/products/:_id')
   async delProduct(ctx, next) {
-    const body = ctx.request.body
-    const { _id } = body
+    const params = ctx.params
+    const { _id } = params
 
     if (!_id) return (ctx.body = { success: false, err: 'id is required' })
 
+    let product = await api.product.getProduct(_id)
+
+    if (!product) return (ctx.body = { success: false, err: 'product is not exist' })
+
     try {
-      await api.product.delProduct(_id)
+      await api.product.del(_id)
 
       ctx.body = {
+        data: product,
         success: true
       }
     } catch (err) {

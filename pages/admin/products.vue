@@ -23,6 +23,7 @@
               p(v-for='parameter in item.parameters') {{parameter.key}} {{parameter.value}}
             td
               button.btn(@click='editProduct(item)').material-icon edit
+              button.btn(@click='deleteProduct(item)').material-icon delete
   .edit-product(:class='{active: editing}')
     .edit-header
       .material-icon edit
@@ -97,10 +98,15 @@ export default {
       html = html.replace('/\n/g', '<br />') // 正则全局替换换行符为html br
       this.edited.intro = html
     },
+
     editProduct(item) {
       this.edited = item
       this.isProduct = true
       this.editing = true
+    },
+
+    async deleteProduct(item) {
+      await this.$store.dispatch('deleteProduct', item)
     },
 
     createProduct() {

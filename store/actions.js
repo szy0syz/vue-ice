@@ -90,5 +90,13 @@ export default {
     console.log('~~~~~')
     console.log(res)
     return res.data.data
+  },
+
+  // 删除宝贝
+  async deleteProduct({state, dispatch}, product) {
+    await axios.delete(`/api/products/${product._id}`)
+    let res = await dispatch('fetchProducts')
+
+    return res.data.data
   }
 }

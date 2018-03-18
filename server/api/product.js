@@ -29,8 +29,8 @@ export async function update(product) {
   return product
 }
 
-export async function del(product) {
-  await product.remove()
+export async function del(_id) {
+  await Product.remove({_id})
 
   return true
 }
