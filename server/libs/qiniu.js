@@ -7,7 +7,19 @@ qiniu.conf.SECRET_KEY = config.qiniu.SK
 
 const bucket = config.qiniu.bucket
 
-export const a = async (url, key) => {
+// "qiniu": "^7.1.3" // 太新了，装6.1.13
+// 7.1.3 方式
+// let mac = new qiniu.auth.digest.Mac(accessKey, secretKey)
+// let config = new qiniu.conf.Config()
+// config.useHttpsDomain = true
+// config.zone = qiniu.zone.Zone.z2
+// let bucketManager = new qiniu.rs.BucketManager(mac, config)
+
+export const uptoken = (key) => {
+  return new qiniu.rs.PutPolicy(`${bucket}:${key}`).token()
+}
+
+export const fetchImage = async (url, key) => {
   // const client = new qiniu.rs.Client()
 
   return new Promise((resolve, reject) => {

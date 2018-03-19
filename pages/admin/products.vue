@@ -82,6 +82,7 @@ import { mapState } from 'vuex'
 import randomToken from 'random-token'
 import Uploader from 'qiniu-web-uploader'
 import vSnackbar from '../../components/snackbar.vue'
+import axios from 'axios'
 
 export default {
   layout: 'admin',
@@ -99,7 +100,11 @@ export default {
         images: [],
         parameters: []
       },
-      editing: false
+      editing: false,
+      upload: {
+        dasharray: 0,
+        dashoffset: 0
+      }
     }
   },
 
@@ -164,16 +169,16 @@ export default {
       this.edited.parameters.splice(index, 1)
     },
 
-    async getUptoken () {
-      let res = await axios.get('/api/qiniu/token', {
+    async getUptoken(key) {
+      let res = await axios.get('/qiniu/token', {
         params: { key }
       })
 
-      return res.data.data
+      return res.data.data.token
     },
 
     async uploadImg(e) {
-      this.upload.dashoffset = this.upload.dasharray
+      // this.upload.dashoffset = this.upload.dasharray
 
       let file = e.target.files[0]
       let key = randomToken(32)
@@ -191,17 +196,23 @@ export default {
       let uploader = new Uploader(file, uptoken)
 
       uploader.on('progress', () => {
-        // 获取上传进度
-        let dashoffset = this.upload.dasharray * (1 - uploader.percent)
-        // 设置上传进度
-        this.upload.dashoffset = dashoffset
-        // 正式启动上传
-        let res = await uploader.upload()
-
-        uploader.cancel()
-        console.log(res)
-        this.edited.images.push(res.key)
+        // // 获取上传进度
+        // let dashoffset = this.upload.dasharray * (1 - uploader.percent)
+        // // 设置上传进度
+        // this.upload.dashoffset = dashoffset
+        console.log(uploader.percent)
       })
+
+      // 正式启动上传
+      let res = await uploader.upload()
+
+      uploader.cancel()
+      console.log(res)
+      this.edited.images.push(res.key)
+    },
+
+    async deleteImg(index) {
+      this.edited.images.splice(index, 1)
     }
   },
 

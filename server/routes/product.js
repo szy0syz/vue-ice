@@ -1,6 +1,7 @@
 import xss from 'xss'
 import R from 'ramda'
 import api from '../api'
+import * as qiniu from '../libs/qiniu'
 import { controller, get, post, put, del } from '../decorator/router'
 
 @controller('/api')
@@ -124,6 +125,20 @@ export class ProductController {
       ctx.body = {
         success: false,
         err
+      }
+    }
+  }
+
+  @get('qiniu/token')
+  async qiniuToken (ctx, next) {
+    let key = ctx.query.key
+    let token = qiniu.uptoken(key)
+
+    ctx.body = {
+      success: true,
+      data: {
+        key,
+        token
       }
     }
   }
