@@ -2,11 +2,20 @@ import qiniu from 'qiniu'
 import config from '../config'
 import { exec } from 'shelljs'
 
-qiniu.conf.ACCESS_KEY = config.qiniu.AK
-qiniu.conf.SECRET_KEY = config.qiniu.SK
+// qiniu.conf.ACCESS_KEY = config.qiniu.AK
+// qiniu.conf.SECRET_KEY = config.qiniu.SK
 
-const bucket = config.qiniu.bucket
+// const bucket = config.qiniu.bucket
 
+const mac = new qiniu.auth.digest.Mac(config.qiniu.AK, config.qiniu.SK)
+let options = {
+  scope: config.qiniu.bucket,
+}
+
+let putPolicy = new qiniu.rs.PutPolicy(options)
+
+const uploadToken = putPolicy.uploadToken(mac)
+console.log("uploadToken:", uploadToken)
 // "qiniu": "^7.1.3" // 太新了，装6.1.13
 // 7.1.3 方式
 // let mac = new qiniu.auth.digest.Mac(accessKey, secretKey)
@@ -16,7 +25,8 @@ const bucket = config.qiniu.bucket
 // let bucketManager = new qiniu.rs.BucketManager(mac, config)
 
 export const uptoken = (key) => {
-  return new qiniu.rs.PutPolicy(`${bucket}:${key}`).token()
+  // return new qiniu.rs.PutPolicy(`${bucket}:${key}`).token()
+  return uploadToken
 }
 
 export const fetchImage = async (url, key) => {
