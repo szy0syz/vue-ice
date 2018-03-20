@@ -10,7 +10,7 @@ export default {
   qiniu: {
     AK: 'OiUlP0RxLh1eN318uvFvX4AyHeRfAGOiPmnNwdGx',
     SK: 'Meii5goUxxczCkctM3vM3dgdQTU5r7YwOzHeIocE',
-    bucket: 'getice',
-    qiniuURL: 'p5eui3pi8.bkt.clouddn.com'
+    bucket: 'vue-ice',
+    qiniuURL: 'p5wfod7im.bkt.clouddn.com'
   }
 }
