@@ -15,7 +15,7 @@
         tr(v-for='item in products')
           td
             .img(v-for='image in item.images')
-              img(:src='imageCDN + image + "?imageView2/1/format/jpg/q/75/imageslim"')
+              img(:src='"http://p5wfod7im.bkt.clouddn.com/" + image + "?imageView2/1/format/jpg/q/75/imageslim"')
             td {{item.title}}
             td {{item.price}}
             td(v-html='item.intro')
