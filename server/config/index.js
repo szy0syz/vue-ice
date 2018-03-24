@@ -11,6 +11,10 @@ export default {
     AK: 'OiUlP0RxLh1eN318uvFvX4AyHeRfAGOiPmnNwdGx',
     SK: 'Meii5goUxxczCkctM3vM3dgdQTU5r7YwOzHeIocE',
     bucket: 'vue-ice',
-    qiniuURL: 'p5wfod7im.bkt.clouddn.com'
+    qiniuURL: 'p5wfod7im.bkt.clouddn.com',
+    config: {
+      useCdnDomain: true
+      // region: 'z0' // 华东z0 (华南:z2)
+    }
   }
 }

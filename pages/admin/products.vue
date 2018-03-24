@@ -44,7 +44,7 @@
           lable 图片
           .upload-images
             .img(v-for='(item, index) in edited.images')
-              img(:src='imageCDN + item + "?imageView2/1/format/jpg/q/75/imageslim"')
+              img(:src='"http://p5wfod7im.bkt.clouddn.com/" + item + "?imageView2/1/format/jpg/q/75/imageslim"')
               .tools
                 .material-icon(@click='deleteImg(index)') delete
           .upload-btn
@@ -80,9 +80,11 @@
 <script>
 import { mapState } from 'vuex'
 import randomToken from 'random-token'
-import Uploader from 'qiniu-web-uploader'
+import config from '~/server/config'
 import vSnackbar from '../../components/snackbar.vue'
 import axios from 'axios'
+
+import * as qiniu from 'qiniu-js'
 
 export default {
   layout: 'admin',
@@ -185,30 +187,20 @@ export default {
 
       key = `products/${key}`
       let token = await this.getUptoken(key)
-
-      let uptoken = {
-        uptoken: token,
-        key: Buffer.from(key).toString('base64')
+      const self = this
+      const observer = {
+        next(res) {
+          console.log(res.total, res.loaded)
+        },
+        error(err) {
+          console.log(err)
+        },
+        complete(res) {
+          self.edited.images.push(res.key)
+        }
       }
-
-      // Uploader.QINIU_UPLOAD_URL = '//up-z2.qiniu.com' // 我是华南区
-
-      let uploader = new Uploader(file, uptoken)
-
-      uploader.on('progress', () => {
-        // // 获取上传进度
-        // let dashoffset = this.upload.dasharray * (1 - uploader.percent)
-        // // 设置上传进度
-        // this.upload.dashoffset = dashoffset
-        console.log(uploader.percent)
-      })
-
-      // 正式启动上传
-      let res = await uploader.upload()
-
-      uploader.cancel()
-      console.log(res)
-      this.edited.images.push(res.key)
+      const observable = qiniu.upload(file, key, token, null, config.qiniu.config)
+      observable.subscribe(observer) // 上传开始
     },
 
     async deleteImg(index) {
