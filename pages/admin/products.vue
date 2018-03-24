@@ -190,7 +190,7 @@ export default {
       const self = this
       const observer = {
         next(res) {
-          console.log(res.total, res.loaded)
+          console.log(res.total, res)
         },
         error(err) {
           console.log(err)
