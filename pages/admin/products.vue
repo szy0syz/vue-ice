@@ -121,7 +121,7 @@ export default {
   methods: {
     editedIntro(e) {
       let html = e.target.value
-      html = html.replace('/\n/g', '<br />') // 正则全局替换换行符为html br
+      html = html.replace('/\n/g', '<br />') // 正则全局替换换 行符 为html br
       this.edited.intro = html
     },
 
@@ -147,6 +147,8 @@ export default {
     },
 
     async saveEdited() {
+      console.log('我在客户端时~~~')
+      console.log(this.edited)
       this.isProduct // 为true时更新、为false时创建
         ? await this.$store.dispatch('putProduct', this.edited)
         : await this.$store.dispatch('saveProduct', this.edited)

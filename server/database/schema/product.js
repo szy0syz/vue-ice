@@ -3,11 +3,11 @@ const Schema = mongoose.Schema
 // const Mixed = Schema.Types.Mixed
 
 const ProductSchema = new Schema({
-  price: String,
+  price: Number,
   title: String,
   intro: String,
   images: [ String ],
-  paramters: [
+  parameters: [
     {
       key: String,
       value: String

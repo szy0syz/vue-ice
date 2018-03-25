@@ -74,10 +74,13 @@ export default {
 
   // 创建宝贝
   async saveProduct({state, dispatch}, product) {
+    console.log('我在actions时！！！！')
+    console.log(product)
     await axios.post('/api/products', product)
 
     let res = await dispatch('fetchProducts')
-
+    console.log('我是写入到数据库后返回的数据~~~')
+    console.log(res)
     return res.data.data
   },
 

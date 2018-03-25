@@ -17,9 +17,12 @@ export async function getProduct(_id) {
 }
 
 export async function save(product) {
+  console.log('我在api~~保存宝贝前%%%%%')
+  console.log(product)
   product = new Product(product)
   product = await product.save()
-
+  console.log('我在api~~保存宝贝后%%%%%')
+  console.log(product)
   return product
 }
 
