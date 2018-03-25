@@ -8,7 +8,7 @@
 export default {
   props: {
     title: String,
-    content: Number
+    content: String
   }
 }
 </script>
