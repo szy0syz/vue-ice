@@ -41,7 +41,7 @@ export class ProductController {
     product = {
       title: xss(product.title),
       price: xss(product.price),
-      intro: xss(product.price),
+      intro: xss(product.intro),
       images: R.map(xss)(product.images),
       parameters: R.map(item => ({
         key: xss(item.key),
