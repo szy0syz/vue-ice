@@ -12,7 +12,7 @@
           span.main-price {{Number(product.price).toFixed(2) - Number(product.price).toFixed(2).substr(-3)}}
           span.other-price {{Number(product.price).toFixed(2).substr(-3)}}
       
-        .name {{product.name}}
+        .name {{product.title}}
         .intro {{product.intro}}
         .info
           cell(v-for='(item, index) in product.parameters' :key='index' :title='item.key' :content='item.value')
