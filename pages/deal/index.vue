@@ -68,7 +68,7 @@ export default {
   },
   beforeCreate() {
     const id = this.$route.query._id
-    console.log(id)
+
     this.$store.dispatch('fetchProduct', id)
   },
   components: {

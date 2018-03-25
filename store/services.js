@@ -33,7 +33,7 @@ class Services {
   }
 
   fetchProduct(id) {
-    return axios.get(`${baseUrl}/api/products/{id}`)
+    return axios.get(`${baseUrl}/api/products/${id}`)
   }
 
   fetchUserAndOrders() {
