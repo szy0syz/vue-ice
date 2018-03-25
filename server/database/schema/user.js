@@ -107,7 +107,8 @@ UserSchema.methods = {
             loginAttempts: 1
           }
         }
-
+        // 分开更新：如果已经到最大试错次数，且账号没锁定，就自增1和增加锁定时间
+        // 否则就只自增1
         if (that.loginAttempts + 1 >= MAX_LOGIN_ATTEMPTS && !that.isLocked) {
           updates.$set = {
             lockUntil: Date.now() + LOCK_TIME
