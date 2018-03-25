@@ -4,14 +4,13 @@
       .swiper(v-swiper:jSwiper='swiperConfig')
         .swiper-wrapper
           .swiper-slide(v-for='item in product.images')
-            img(:src='item')
-        
+            img(:src='"http://p5wfod7im.bkt.clouddn.com/" + item')
         .swiper-pagination.swiper-pagination-bullets
 
       .content
         .price(v-if='product.price')
-          span.main-price {{product.price.toFixed(2) - product.price.toFixed(2).substr(-3)}}
-          span.other-price {{product.price.toFixed(2).substr(-3)}}
+          span.main-price {{Number(product.price).toFixed(2) - Number(product.price).toFixed(2).substr(-3)}}
+          span.other-price {{Number(product.price).toFixed(2).substr(-3)}}
       
         .name {{product.name}}
         .intro {{product.intro}}
@@ -68,7 +67,8 @@ export default {
     }
   },
   beforeCreate() {
-    const id = this.$route.query.id
+    const id = this.$route.query._id
+    console.log(id)
     this.$store.dispatch('fetchProduct', id)
   },
   components: {

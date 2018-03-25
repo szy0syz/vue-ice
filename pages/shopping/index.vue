@@ -4,7 +4,7 @@
       .title 权游周边
       .list
         .items(v-for='(item, index) in products' :key='index' @click='showProduct(item)')
-          img(:src='imageCDN + item.images[0]')
+          img(:src='"http://p5wfod7im.bkt.clouddn.com/" + item.images[0]')
           .body
             .title {{item.title}}
             .content {{item.intro}}
@@ -30,7 +30,7 @@ export default {
       this.$router.push({
         path: '/deal',
         query: {
-          id: item.id
+          _id: item._id
         }
       })
     }

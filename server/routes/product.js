@@ -23,9 +23,12 @@ export class ProductController {
     const { _id } = ctx.params
 
     if (!_id) return (ctx.body = { success: false, err: 'id is required' })
-
-    const data = await api.products.getProduct(_id)
-
+    console.log('!!!!!!!!!!!!!!!~~~~~~~~~~~~~`')
+    console.log(_id)
+    const data = await api.product.getProduct(_id)
+    console.log('!!!!!!!!!!!!!!!~~~~~~~~~~~~~`')
+    console.log(data)
+    console.log('!!!!!!!!!!!!!!!~~~~~~~~~~~~~`')
     ctx.body = {
       data,
       success: true
