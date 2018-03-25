@@ -24,7 +24,7 @@ const UserSchema = new Schema({
   gender: String,
   email: String,
   password: String,
-  hashde_password: String,
+  hashed_password: String,
   loginAttempts: {
     type: Number,
     required: true,
@@ -60,7 +60,7 @@ UserSchema.pre('save', function (next) {
 
 UserSchema.pre('save', function (next) {
   let user = this
-
+  // 如果密码没变，就跳过。
   if (user.isModified('password')) return next()
 
   bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
