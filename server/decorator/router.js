@@ -2,11 +2,10 @@ import Router from 'koa-router'
 import { resolve } from 'path'
 import glob from 'glob'
 import _ from 'lodash'
+import R from 'ramda'
 
 export let routersMap = new Map()
-
 export const symbolPrefix = Symbol('prefix') // 保证唯一性
-
 export const isArray = v => _.isArray(v) ? v : [v]
 export const normalizePath = path => path.startsWith('/') ? path : `/${path}`
 
@@ -59,12 +58,14 @@ const decorate = (args, middleware) => {
   let [target, key, descriptor] = args
 
   target[key] = isArray(target[key])
-  target[key].unshift(middle)
+  target[key].unshift(middleware)
+
+  return descriptor
 }
 
 export const convert = middleware => (...args) => decorate(args, middleware)
 
-export const required = rules = convert(async (ctx, next) => {
+export const required = rules => convert(async (ctx, next) => {
   let errors = []
 
   const passRules = R.forEachObjIndexed(

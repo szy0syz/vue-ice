@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 
 const SALT_WORK_FACTOR = 10
 const MAX_LOGIN_ATTEMPTS = 5
-const LOCK_TIME = 2 * 60 * 60 *1000 // 20mins
+const LOCK_TIME = 2 * 60 * 60 * 1000 // 20mins
 
 const Schema = mongoose.Schema
 
@@ -79,7 +79,7 @@ UserSchema.pre('save', function (next) {
 UserSchema.methods = {
   comparePassword: function (_password, password) {
     return new Promise((resolve, reject) => {
-      bcrypt.compare(_password, password, function(err, isMatch) {
+      bcrypt.compare(_password, password, function (err, isMatch) {
         if (!err) resolve(isMatch)
         else reject(err)
       })
@@ -90,20 +90,24 @@ UserSchema.methods = {
     const that = this
     return new Promise((resolve, reject) => {
       if (that.lockUntil && that.lockUntil < Date.now()) {
-        that.update({
-          $set: {
-            loginAttempts: 1
+        that.update(
+          {
+            $set: {
+              loginAttempts: 1
+            },
+            $unset: {
+              lockUntil: 1
+            }
           },
-          $unset: {
-            lockUntil: 1
+          function (err) {
+            if (!err) resolve(true)
+            else reject(err)
           }
-        }, function (err) {
-          if (!err) resolve(true)
-          else reject(err)
-        }
-      )} else {
+        )
+      } else {
         let updates = {
-          $inc: { // 自增1
+          $inc: {
+            // 自增1
             loginAttempts: 1
           }
         }

@@ -1,26 +1,14 @@
-import mongoose from 'mongoose'
+import api from '../api'
 import { controller, post, required } from '../decorator/router'
-
-const User = mongoose.model('User')
 
 @controller('/admin')
 export class WechatController {
-  @post('/houses')
+  @post('/login')
   @required({ body: ['email', 'password'] })
   async getHouses(ctx, next) {
     const { email, password } = ctx.request.body
-    let user
-    let match = false
-
-    try {
-      user = await User.findOne({ email }).exec()
-
-      if (user) {
-        match = await User.comparePassword(password, user.password)
-      }
-    } catch (err) {
-      throw new Error(err)
-    }
+    const data = await api.admin.login(email, password)
+    const { match, user } = data
 
     if (match) {
       ctx.session.user = {

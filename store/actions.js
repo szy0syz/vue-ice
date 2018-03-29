@@ -26,6 +26,7 @@ export default {
       })
 
       const { data } = res
+
       if (data.success) commit('SET_USER', data.data)
 
       return data.data

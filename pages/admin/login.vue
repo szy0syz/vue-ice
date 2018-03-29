@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import vSnackbar from '~component/snackbar'
+import vSnackbar from '../../components/snackbar.vue'
 
 export default {
   data() {
@@ -64,7 +64,7 @@ export default {
 
       let res = await this.$store.dispatch('login', this.user)
 
-      if(!res.success) this.$router.push('/admin')
+      if (!res.success) this.$router.push('/admin')
     }
   },
 
@@ -74,5 +74,4 @@ export default {
 }
 </script>
 
-<style scoped lang="sass" src='~static/sass/admin'></style>
-
+<style scoped lang="sass" src='static/sass/admin.sass'></style>
