@@ -37,7 +37,7 @@
         .form
           input.form-control(v-model='user.email')
           input.form-control(type='password' v-model='user.password')
-          button.btn-login-btn(@click='login') 登录
+          button.login-btn(@click='login') 登 录
     v-snackbar(:open.sync='openSnackbar')
 </template>
 
