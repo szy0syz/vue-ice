@@ -20,7 +20,7 @@ export default {
 
   async login({ commit }, { email, password }) {
     try {
-      let res = await axios.post('/admin/lgon', {
+      let res = await axios.post('/admin/login', {
         email,
         password
       })
