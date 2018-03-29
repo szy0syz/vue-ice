@@ -29,7 +29,7 @@ export default {
 
       if (data.success) commit('SET_USER', data.data)
 
-      return data.data
+      return data
     } catch (err) {
       if (err.response.status === 401) {
         throw new Error('来错地方了')
