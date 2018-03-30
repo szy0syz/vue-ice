@@ -51,5 +51,14 @@ export async function getUserByCode(code) {
   
     await newUser.save()
   }
-  return user
+
+  // 控制返回的格式
+  return {
+    nickname: user.nickname,
+    province: user.province,
+    country: user.country,
+    city: user.city,
+    sex: user.sex,
+    headimgurl: user.headimgurl
+  }
 }

@@ -51,6 +51,10 @@ export default {
     return Services.getUserByOAuth(url)
   },
 
+  getWechatOAuth({ commit }, url) {
+    return Services.getWechatOAuth(url)
+  },
+
   setAuthUser({ commit }, authUser) {
     commit('SET_AUTHUSER', authUser)
   },
