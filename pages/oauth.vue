@@ -2,7 +2,9 @@
 
 <script>
 function getUrlParam(param) {
+  // reg: &state=
   const reg = new RegExp('(^|&)' + param + '=([^&]*)(&|$)')
+  console.log('window.location.search: ', window.location.search)
   const result = window.location.search.substring(1).match(reg)
 
   return result ? decodeURIComponent(result[2]) : null
@@ -17,6 +19,7 @@ export default {
   async beforeMount() {
     const url = window.location.href
     const { data } = await this.$store.dispatch('getWechatOAuth', url)
+    console.log('beforeMount -- data: ~~~~~~')
     console.log(data)
 
     if (data.success) { // 更新用户信息
