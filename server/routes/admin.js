@@ -2,7 +2,7 @@ import api from '../api'
 import { controller, post, required } from '../decorator/router'
 
 @controller('/admin')
-export class WechatController {
+export class AdminController {
   @post('/login')
   @required({ body: ['email', 'password'] })
   async getHouses(ctx, next) {
@@ -11,6 +11,13 @@ export class WechatController {
     const { match, user } = data
 
     if (match) {
+      if (user.role !== 'admin') {
+        return (ctx.body = {
+          success: false,
+          err: '权限错误/来错地方'
+        })
+      }
+
       ctx.session.user = {
         _id: user._id,
         email: user.email,

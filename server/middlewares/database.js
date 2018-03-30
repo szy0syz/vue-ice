@@ -59,7 +59,7 @@ export const database = app => {
       console.log('写入初始化管理员数据')
       user = new User({
         email: 'szy0syz@gmail.com',
-        password: 'lyp82nLF?',
+        password: 'admin888',
         role: 'admin'
       })
     }
