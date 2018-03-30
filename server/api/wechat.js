@@ -28,10 +28,11 @@ export async function getUserByCode(code) {
   console.log(data)
   // const user = await oauth.getUserByCode(data.access_token, data.unionid)
   const user = await oauth.getUserInfo(data.access_token, data.openid)
+  console.log('getUserByCode~~~~~')
   console.log(user)
   const existUser = await User.findOne({
     openid: data.openid
-  })
+  }).exec()
 
   console.log(`existUser`)
   console.log(existUser)
@@ -48,7 +49,7 @@ export async function getUserByCode(code) {
       sex: user.sex,
       headimgurl: user.headimgurl
     })
-  
+
     await newUser.save()
   }
 

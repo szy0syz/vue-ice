@@ -3,7 +3,6 @@ import config from '../config'
 import reply from '../wechat/reply'
 import wechatMiddle from '../wechat-lib/middleware'
 import { signature, redirect, oauth } from '../controllers/wechat'
-// import { resolve } from 'path'
 
 @controller('')
 export class WechatController {
@@ -11,7 +10,7 @@ export class WechatController {
   async wechatHear(ctx, next) {
     const middle = wechatMiddle(config.wechat, reply)
     const body = await middle(ctx, next)
-
+    console.log('get--/wechat-hear')
     ctx.body = body
   }
 
@@ -19,7 +18,7 @@ export class WechatController {
   async wechatPostHear(ctx, next) {
     const middle = wechatMiddle(config.wechat, reply)
     const body = await middle(ctx, next)
-
+    console.log('post--/wechat-hear')
     ctx.body = body
   }
 

@@ -11,7 +11,7 @@ export default {
         nickname,
         avatarUrl
       }
-
+      console.log('nuxtServerInit')
       console.log(user)
 
       commit('SET_USER', user)
