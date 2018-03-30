@@ -2,6 +2,47 @@ import Services from './services'
 import axios from 'axios'
 
 export default {
+  nuxtServerInit({ commit }, { req }) {
+    if (req.session && req.session.user) {
+      const { email, nickname, avatarUrl } = req.session.user
+
+      const user = {
+        email,
+        nickname,
+        avatarUrl
+      }
+
+      console.log(user)
+
+      commit('SET_USER', user)
+    }
+  },
+
+  async login({ commit }, { email, password }) {
+    try {
+      let res = await axios.post('/admin/login', {
+        email,
+        password
+      })
+
+      const { data } = res
+
+      if (data.success) commit('SET_USER', data.data)
+
+      return data
+    } catch (err) {
+      if (err.response.status === 401) {
+        throw new Error('来错地方了')
+      }
+    }
+  },
+
+  async logout({commit}) {
+    await axios.post('/admin/logout')
+
+    commit('SET_USER', null)
+  },
+
   getWechatSignature({ commit }, url) {
     return Services.getWechatSignature(url)
   },
@@ -73,7 +114,7 @@ export default {
   },
 
   // 创建宝贝
-  async saveProduct({state, dispatch}, product) {
+  async saveProduct({ state, dispatch }, product) {
     console.log('我在actions时！！！！')
     console.log(product)
     await axios.post('/api/products', product)
@@ -85,7 +126,7 @@ export default {
   },
 
   // 更新宝贝
-  async putProduct({state, dispatch}, product) {
+  async putProduct({ state, dispatch }, product) {
     console.log(product)
     await axios.put('/api/products', product)
 
@@ -96,7 +137,7 @@ export default {
   },
 
   // 删除宝贝
-  async deleteProduct({state, dispatch}, product) {
+  async deleteProduct({ state, dispatch }, product) {
     await axios.delete(`/api/products/${product._id}`)
     let res = await dispatch('fetchProducts')
 

@@ -41,6 +41,7 @@ export const database = app => {
   mongoose.connection.on('open', async () => {
     console.log('Connected to MongoDB ', config.db)
 
+    const User = mongoose.model('User')
     const WikiHouse = mongoose.model('WikiHouse')
     const WikiCharacter = mongoose.model('WikiCharacter')
 
@@ -49,5 +50,20 @@ export const database = app => {
 
     if (!existWikiHouses.length) WikiHouse.insertMany(wikiHouses)
     if (!existWikiCharacters.length) WikiCharacter.insertMany(wikiCharacters)
+
+    let user = await User.findOne({
+      email: 'szy0syz@gmail.com'
+    }).exec()
+
+    if (!user) {
+      console.log('写入初始化管理员数据')
+      user = new User({
+        email: 'szy0syz@gmail.com',
+        password: 'lyp82nLF?',
+        role: 'admin'
+      })
+    }
+
+    await user.save()
   })
 }
