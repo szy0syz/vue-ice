@@ -16,13 +16,15 @@ const UserSchema = new Schema({
 
   openid: [String],
   unionid: String,
-  nickName: String,
+  nickname: String,
   address: String,
   province: String,
   country: String,
   city: String,
   gender: String,
+  sex: String,
   email: String,
+  headimgurl: String,
   password: String,
   hashed_password: String,
   loginAttempts: {

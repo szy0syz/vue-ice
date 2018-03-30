@@ -21,8 +21,8 @@ export async function signature(ctx, next) {
 export async function redirect(ctx, next) {
   const target = config.SITE_ROOT_URL + '/oauth'
   const scope = 'snsapi_userinfo'
-  const { a, b } = ctx.query // ~~~~~~~~~~这里只是测试用！
-  const params = `${a}_${b}`
+  const { visit, id } = ctx.query
+  const params = id ? `${visit}_${id}` : visit
 
   const url = await api.wechat.getAuthorizeURL(scope, target, params)
 
@@ -38,8 +38,10 @@ export async function oauth(ctx, next) {
   const urlObj = urlParse(url)
   const params = queryParse(urlObj.query)
   const code = params.code
-
   const user = await api.wechat.getUserByCode(code)
+
+  // 在session存储user
+  ctx.session.user = user
 
   ctx.body = {
     succsee: true,

@@ -9,6 +9,7 @@ const createStore = () => {
       user: null,
       houses: [],
       products: [],
+      authUser: null,
       characters: [],
       currentHouse: {},
       currentProduct: [],

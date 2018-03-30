@@ -1,8 +1,6 @@
-<template lang="pug">
-  .container
-</template>
-<script>
+<template lang="pug"></template>
 
+<script>
 export default {
   head() {
     return {

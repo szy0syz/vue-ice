@@ -51,6 +51,10 @@ export default {
     return Services.getUserByOAuth(url)
   },
 
+  setAuthUser({ commit }, authUser) {
+    commit('SET_AUTHUSER', authUser)
+  },
+
   async fetchHouses({ state }) {
     const res = await Services.fetchHouses()
 
