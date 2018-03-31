@@ -19,22 +19,25 @@ export async function getSignatureAsync(url) {
 
 export async function getAuthorizeURL(...args) {
   const oauth = getOAuth()
+  console.log('我在api的wechat中 getAuthorizeURL')
+  console.log(oauth)
   return oauth.getAuthorizeURL(...args)
 }
 
 export async function getUserByCode(code) {
   const oauth = getOAuth()
   const data = await oauth.fetchAccessToken(code)
+  console.log('我是api-wechat中的getUserByCode：data')
   console.log(data)
   // const user = await oauth.getUserByCode(data.access_token, data.unionid)
   const user = await oauth.getUserInfo(data.access_token, data.openid)
-  console.log('getUserByCode~~~~~')
+  console.log('getUserByCode~~~~~user')
   console.log(user)
   const existUser = await User.findOne({
     openid: data.openid
   }).exec()
 
-  console.log(`existUser`)
+  console.log(`~~~existUser`)
   console.log(existUser)
 
   if (!existUser) {

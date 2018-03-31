@@ -10,7 +10,7 @@ function getUrlParam(param) {
 export default {
   head() {
     return {
-      title: 'loding...'
+      title: 'loding...(oauth.vue)'
     }
   },
   async beforeMount() {
@@ -22,6 +22,7 @@ export default {
     if (data.success) { // 更新用户信息
       await this.$store.dispatch('setAuthUser', data.data)
       const paramsArr = getUrlParam('state').splite('_')
+      console.log('paramsArr:~~', paramsArr)
       const visit = paramsArr.length === 1 ? `/${paramsArr[0]}` : `/${paramsArr[0]}?id=${paramsArr[1]}`
 
       this.$router.replace(visit)
