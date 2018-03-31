@@ -16,11 +16,11 @@
         "production": {
             "user": "root",
             "host": [
-                "47.92.154.146"
+                "118.24.163.24"
             ],
             "port": "22",
             "ref": "origin/master",
-            "repo": "git@git.coding.net:szy0syz/ice.git",
+            "repo": "git://git.coding.net/szy0syz/vue-ice.git",
             "path": "/home/wwwroot/vue-ice/production",
             "ssh_options": "StrictHostKeyChecking=no",
             "post-deploy" : "npm install && pm2 startOrRestart ecosystem.json --env production",
