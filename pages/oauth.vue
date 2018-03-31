@@ -4,6 +4,8 @@
 function getUrlParam(param) {
   const reg = new RegExp('(^|&)' + param + '=([^&]*)(&|$)')
   const result = window.location.search.substr(1).match(reg)
+  console.log('getUrlParam')
+  console.log(result)
   return result ? decodeURIComponent(result[2]) : null
 }
 
@@ -20,6 +22,7 @@ export default {
     console.log(data)
 
     if (data.success) { // 更新用户信息
+      console.log('进入到了data.success中~~~~~')
       await this.$store.dispatch('setAuthUser', data.data)
       const paramsArr = getUrlParam('state').splite('_')
       console.log('paramsArr:~~', paramsArr)

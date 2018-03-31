@@ -47,7 +47,7 @@ export async function oauth(ctx, next) {
   ctx.session.user = user
 
   ctx.body = {
-    succsee: true,
+    success: true,
     data: user
   }
 }
