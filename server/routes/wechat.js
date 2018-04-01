@@ -8,20 +8,14 @@ import { signature, redirect, oauth } from '../controllers/wechat'
 export class WechatController {
   @get('/wechat-hear')
   async wechatHear(ctx, next) {
-    console.log('get--/wechat-hear')
     const middle = wechatMiddle(config.wechat, reply)
     await middle(ctx, next)
-    // const body = await middle(ctx, next)
-    // ctx.body = body
   }
 
   @post('/wechat-hear')
   async wechatPostHear(ctx, next) {
-    console.log('post--/wechat-hear')
     const middle = wechatMiddle(config.wechat, reply)
     await middle(ctx, next)
-    // await middle(ctx, next)
-    // ctx.body = body
   }
 
   @get('/wechat-signature')
