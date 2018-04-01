@@ -11,9 +11,7 @@ export default {
         nickname,
         avatarUrl
       }
-      console.log('nuxtServerInit')
-      console.log(user)
-
+      // 将user从session转存到vuex
       commit('SET_USER', user)
     }
   },

@@ -33,17 +33,20 @@ export async function redirect(ctx, next) {
 export async function oauth(ctx, next) {
   let url = ctx.query.url
 
-  url = decodeURIComponent(url)
-
   // 解析query查询参数拿code
-  const urlObj = urlParse(url)
+  const urlObj = urlParse(decodeURIComponent(url))
   const params = queryParse(urlObj.query)
   const code = params.code
+
   const user = await api.wechat.getUserByCode(code)
 
   // 更新session
   console.log('我在控制器wecaht中 oauth -- user:')
   console.log(user)
+
+  user.avatarUrl = user.headimgurl
+  user.gender = user.sex === 1 ? '男' : '女'
+  // 将微信服务器返回的user存入session
   ctx.session.user = user
 
   ctx.body = {
