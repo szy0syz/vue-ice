@@ -23,10 +23,10 @@ export async function redirect(ctx, next) {
   const scope = 'snsapi_userinfo'
   const { visit, id } = ctx.query
   const params = id ? `${visit}_${id}` : visit
-  console.log('controller - redirect')
+  console.log('~~~~~~~~~~controller - redirect - params: ')
   console.log(params)
   const url = await api.wechat.getAuthorizeURL(scope, target, params)
-
+  console.log('~~~~~~~~~~controller - redirect - url', url)
   ctx.redirect(url)
 }
 
