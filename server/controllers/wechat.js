@@ -1,6 +1,6 @@
 import { parse as urlParse } from 'url'
 import { parse as queryParse } from 'querystring'
-import api from '../api'
+import * as wechat from '../api/wechat'
 import config from '../config'
 
 export async function signature(ctx, next) {
@@ -10,7 +10,7 @@ export async function signature(ctx, next) {
 
   url = decodeURIComponent(url)
 
-  const params = await api.wechat.getSignatureAsync(url)
+  const params = await wechat.getSignatureAsync(url)
 
   ctx.body = {
     success: true,
@@ -18,15 +18,17 @@ export async function signature(ctx, next) {
   }
 }
 
-export async function redirect(ctx, next) {
-  const target = config.SITE_ROOT_URL + '/oauth'
+// 网页上点某按钮，直接跳转到 http://x.o/wechat-redirect?visit=a&id=b
+// 用户被重定向到 Wechat Redirect URL 授权验证
+// 验证后，自动二跳进入 http://x.o/oauth?code=xxxxxx&state=a_b
+export function redirect(ctx, next) {
+  const redirect = config.SITE_ROOT_URL + '/oauth'
   const scope = 'snsapi_userinfo'
   const { visit, id } = ctx.query
   const params = id ? `${visit}_${id}` : visit
-  console.log('~~~~~~~~~~controller - redirect - params: ')
-  console.log(params)
-  const url = await api.wechat.getAuthorizeURL(scope, target, params)
-  console.log('~~~~~~~~~~controller - redirect - url', url)
+  console.log('~~~~~~~~~~controller - redirect - params: ', params)
+  const url = wechat.getAuthorizeURL(scope, redirect, params)
+
   ctx.redirect(url)
 }
 
@@ -38,7 +40,7 @@ export async function oauth(ctx, next) {
   const params = queryParse(urlObj.query)
   const code = params.code
 
-  const user = await api.wechat.getUserByCode(code)
+  const user = await wechat.getUserByCode(code)
 
   // 更新session
   console.log('我在控制器wecaht中 oauth -- user:')
@@ -47,10 +49,10 @@ export async function oauth(ctx, next) {
   user.avatarUrl = user.headimgurl
   user.gender = user.sex === 1 ? '男' : '女'
   // 将微信服务器返回的user存入session
-  ctx.session.user = user
+  ctx.session = user // 为了测试改,原来ctx.session.user = user
 
   ctx.body = {
     success: true,
-    data: user
+    user
   }
 }
