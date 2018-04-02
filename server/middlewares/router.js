@@ -5,7 +5,7 @@ const r = path => resolve(__dirname, path)
 
 export const router = app => {
   const apiPath = r('../routes')
-  console.log(apiPath)
+  
   const router = new Router(app, apiPath)
 
   router.init()
