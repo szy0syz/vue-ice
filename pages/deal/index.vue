@@ -51,6 +51,7 @@
 <script>
 import cell from '../../components/cell'
 import { mapState } from 'vuex'
+import wechat from '~static/mixins/wechat'
 
 function toggleModal(obj, content) {
   clearTimeout(obj.timer)
@@ -137,16 +138,22 @@ export default {
       }
 
       window.wx.chooseWXPay({
-        //
+        
       })
 
     }
   },
 
+  mixins: [wechat],
+
   async beforeMount() {
     const id = this.$route.query._id
 
     this.$store.dispatch('fetchProduct', id)
+
+    const url = window.location.href
+    
+    await this.wechatConfig(url)
   },
   components: {
     cell
