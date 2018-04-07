@@ -59,7 +59,7 @@ function toggleModal(obj, content) {
   obj.content = content
   obj.timer = setTimeout(() => {
     obj.visible = false
-  }, 1500);
+  }, 1500)
 }
 
 export default {
@@ -88,7 +88,7 @@ export default {
         '需要更多帮助，请联系管路员'
       ],
 
-      showInfo: false,  // 弹出模态框
+      showInfo: false, // 弹出模态框
 
       info: {
         name: '',
@@ -112,11 +112,7 @@ export default {
   methods: {
     async handlePayment() {
       const that = this
-      const {
-        name,
-        address,
-        phoneNumber
-      } = this.info
+      const { name, address, phoneNumber } = this.info
 
       if (!name || !address || !phoneNumber) {
         toggleModal(this.modal, '收货信息忘记填了？')
@@ -131,16 +127,35 @@ export default {
         phoneNumber
       })
 
-      if (!res.order) {
+      const data = res.data
+
+      if (!data || !data.success) {
         toggleModal(this.modal, '服务器异常，请稍后再试。')
-        
+
         return
       }
 
-      window.wx.chooseWXPay({
-        
-      })
+      
 
+      window.wx.chooseWXPay({
+        timestamp: data.timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+        nonceStr: data.nonceStr, // 支付签名随机串，不长于 32 位
+        package: data.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
+        signType: data.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+        paySign: data.paySign, // 支付签名
+        success: (response) => {
+          try {
+            window.WeixinJSBridge.log(response.err_msg)
+          } catch(e) {
+            console.log(e)
+          }
+
+          if (response.err_msg === 'get_brand_wcpay_request:ok') {
+            // 支付成功
+            toggleModal(that.modal, '支付成功')
+          }
+        }
+      })
     }
   },
 
@@ -148,12 +163,10 @@ export default {
 
   async beforeMount() {
     const id = this.$route.query._id
-
-    this.$store.dispatch('fetchProduct', id)
-
     const url = window.location.href
     
-    await this.wechatConfig(url)
+    this.$store.dispatch('fetchProduct', id)
+    await this.wechatInit(url)
   },
   components: {
     cell
