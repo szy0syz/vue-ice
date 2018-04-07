@@ -8,6 +8,11 @@ export default {
     token: 'EiDqQkYqwyH!I37E6Hx6LUr$'
   },
 
+  mina: {
+    appID: 'wxf414b2f007bc1f9f',
+    appSecret: 'ebad50d9a09d3955599217b8cd82b278'
+  },
+
   qiniu: {
     AK: 'OiUlP0RxLh1eN318uvFvX4AyHeRfAGOiPmnNwdGx',
     SK: 'Meii5goUxxczCkctM3vM3dgdQTU5r7YwOzHeIocE',
