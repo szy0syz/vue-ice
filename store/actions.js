@@ -41,6 +41,12 @@ export default {
     commit('SET_USER', null)
   },
 
+  async ceateOrder({state}, obj) {
+    const { data } = Services.ceateOrder(obj)
+
+    return data
+  },
+
   getWechatSignature({ commit }, url) {
     return Services.getWechatSignature(url)
   },

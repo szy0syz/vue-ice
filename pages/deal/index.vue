@@ -123,7 +123,7 @@ export default {
         return
       }
 
-      const res = await this.$store.dispatch('ceateOder', {
+      const res = await this.$store.dispatch('ceateOrder', {
         productId: this.product._id,
         name,
         address,

@@ -16,6 +16,15 @@ class Services {
     return axios.get(`${baseUrl}/wechat-oauth?url=${encodeURIComponent(url)}`)
   }
 
+  ceateOrder({ productId, name, address, phoneNumber }) {
+    return axios.pose(`${baseUrl}/api/wechat-pay`, {
+      productId,
+      name,
+      address,
+      phoneNumber
+    })
+  }
+
   fetchHouses() {
     return axios.get(`${baseUrl}/wiki/houses`)
   }
