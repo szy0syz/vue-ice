@@ -22,14 +22,47 @@
             li(v-for='item in attentions') {{item}}
 
     .product-footer
-      span(@click='buyProduct(product)') 购买
+      span(@click='showInfo = true') 购买
+    transition(name='slide-top')
+      .payment-modal(v-if='showInfo')
+        .payment-modal-header
+          span 准备购买
+          span(@click='showInfo = false') 取消购买
+        .payment-modal-body
+          .info-item
+            img(:src='imageCDN + product.images[0]')
+            div
+              p {{ product.title }}
+              p 价格 ￥{{ product.price }}
+          .info-item
+            span 收件人
+            input(v-model.trim='info.name' placeholder='你的名字')
+          .info-item
+            span 电话
+            inputinput(v-model.trim='info.phoneNumber' type='tel' placeholder='你的电话')
+          .info-item
+            span 地址
+            inputinput(v-model.trim='info.address' type='tel' placeholder='你的收货地址')
+        .payment-modal-footer(@click='handlePayment') 确认支付
+    transition(name='fade')
+      span.model(v-if='model.visible') {{modal.content}}
 </template>
 
 <script>
 import cell from '../../components/cell'
 import { mapState } from 'vuex'
 
+function toggleModal(obj, content) {
+  clearTimeout(obj.timer)
+  obj.visible = true
+  obj.content = content
+  obj.timer = setTimeout(() => {
+    obj.visible = false
+  }, 1500);
+}
+
 export default {
+  middleware: 'wechat-auth',
   head() {
     return {
       title: '购买页面'
@@ -52,7 +85,21 @@ export default {
         '清关服务',
         '物流服务',
         '需要更多帮助，请联系管路员'
-      ]
+      ],
+
+      showInfo: false,  // 弹出模态框
+
+      info: {
+        name: '',
+        phoneNumber: '',
+        address: ''
+      },
+
+      modal: {
+        visible: false,
+        content: '成功',
+        timer: null
+      }
     }
   },
   computed: {
@@ -60,13 +107,43 @@ export default {
       product: 'currentProduct'
     })
   },
+
   methods: {
-    buyProduct(item) {
-      console.log(item)
-      console.log('~~Will to but it~~~')
+    async handlePayment() {
+      const that = this
+      const {
+        name,
+        address,
+        phoneNumber
+      } = this.info
+
+      if (!name || !address || !phoneNumber) {
+        toggleModal(this.modal, '收货信息忘记填了？')
+
+        return
+      }
+
+      const res = await this.$store.dispatch('ceateOder', {
+        productId: this.product._id,
+        name,
+        address,
+        phoneNumber
+      })
+
+      if (!res.order) {
+        toggleModal(this.modal, '服务器异常，请稍后再试。')
+        
+        return
+      }
+
+      window.wx.chooseWXPay({
+        //
+      })
+
     }
   },
-  beforeCreate() {
+
+  async beforeMount() {
     const id = this.$route.query._id
 
     this.$store.dispatch('fetchProduct', id)
