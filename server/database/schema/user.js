@@ -27,6 +27,7 @@ const UserSchema = new Schema({
   headimgurl: String,
   password: String,
   hashed_password: String,
+  phoneNumber: String,
   loginAttempts: {
     type: Number,
     required: true,
