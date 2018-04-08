@@ -1,8 +1,13 @@
+import mongoose from 'mongoose'
 import { controller, get, post, required } from "../decorator/router";
 import config from "../config";
 import reply from "../wechat/reply";
 import wechatMiddle from "../wechat-lib/middleware";
 import { signature, redirect, oauth } from "../controllers/wechat";
+
+const User = mongoose.model('User')
+const Product = mongoose.model('Product')
+const payment = mongoose.model('Payment')
 
 @controller("")
 export class WechatController {
@@ -31,7 +36,9 @@ export class WechatController {
       _id: productId
     }).exec()
 
-    if (!product) return (ctx.body = { success: false, err: "这个宝贝不存在" });
+    if (!product) {
+      return (ctx.body = { success: false, err: "这个宝贝不存在" })
+    }
 
     try {
       // 查询用户是否以前登录过
@@ -49,8 +56,45 @@ export class WechatController {
           sex: session.user.sex,
           headimgurl: session.user.headimgurl
         })
+
+        user = await user.save()
       }
-    } catch (err) {}
+
+      let orderParams = {
+        body: product.title,
+        attach: '公众号周边手办支付',
+        out_trade_no: 'Product' + (new Date),
+        total_fee: product.price * 100,
+        openid: session.user.unionid,
+        trade_type: 'JSAPI',
+        spbill_create_ip: ip
+      }
+
+      const order = await getParamsAsync(orderParams)
+
+      let payment = new Payment({
+        user: user._id,
+        product: product._id,
+        name,
+        address,
+        payType: '公众号',
+        order,
+        totalFee: product.price
+      })
+
+      payment = await payment.save()
+
+      ctx.body = {
+        success: true,
+        data: payment.order
+      }
+
+    } catch (err) {
+      ctx.body = {
+        success: false,
+        err
+      }
+    }
   }
 
   @get("/wechat-signature")

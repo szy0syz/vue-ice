@@ -17,7 +17,7 @@ class Services {
   }
 
   ceateOrder({ productId, name, address, phoneNumber }) {
-    return axios.pose(`${baseUrl}/api/wechat-pay`, {
+    return axios.pose(`${baseUrl}/wechat-pay`, {
       productId,
       name,
       address,
