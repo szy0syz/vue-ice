@@ -130,7 +130,7 @@ export class ProductController {
   }
 
   @get('qiniu/token')
-  async qiniuToken (ctx, next) {
+  async qiniuToken(ctx, next) {
     let key = ctx.query.key
     let token = qiniu.uptoken(key)
 
