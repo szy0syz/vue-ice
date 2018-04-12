@@ -1,7 +1,7 @@
 import api from '../api'
 import { controller, post, required, get } from '../decorator/router'
 import mongoose from 'mongoose'
-const Payments = mongoose.model('Payments')
+const Payment = mongoose.model('Payment')
 
 @controller('/admin')
 export class AdminController {
@@ -55,7 +55,7 @@ export class AdminController {
 
   @get('payments')
   async getPayments(ctx, next) {
-    const res = await Payments.find({}).populate('product user').exec()
+    const res = await Payment.find({}).populate('product user').exec()
 
     ctx.body = {
       success: true,

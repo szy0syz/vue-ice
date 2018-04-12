@@ -51,7 +51,7 @@
 <script>
 import cell from '../../components/cell'
 import { mapState } from 'vuex'
-import wechat from '~static/mixins/wechat'
+import wechat from 'static/mixins/wechat'
 
 function toggleModal(obj, content) {
   clearTimeout(obj.timer)
@@ -135,8 +135,6 @@ export default {
         return
       }
 
-      
-
       window.wx.chooseWXPay({
         timestamp: data.timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
         nonceStr: data.nonceStr, // 支付签名随机串，不长于 32 位
@@ -146,7 +144,7 @@ export default {
         success: (response) => {
           try {
             window.WeixinJSBridge.log(response.err_msg)
-          } catch(e) {
+          } catch (e) {
             console.log(e)
           }
 
@@ -164,7 +162,7 @@ export default {
   async beforeMount() {
     const id = this.$route.query._id
     const url = window.location.href
-    
+
     this.$store.dispatch('fetchProduct', id)
     await this.wechatInit(url)
   },

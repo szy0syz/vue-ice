@@ -33,8 +33,6 @@
 import { mapState } from 'vuex'
 import vSnackbar from '../../components/snackbar.vue'
 
-import * as qiniu from 'qiniu-js'
-
 export default {
   middleware: 'auth',
   layout: 'admin',
