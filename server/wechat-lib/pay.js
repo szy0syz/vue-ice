@@ -5,7 +5,7 @@ import wechatPay from 'wechat-pay'  // 第三方库
 import config from '../config'
 import path from 'path'
 
-const cert = path.resolve(__dirname, '../', 'config/cert/apiclient_cert.p2')
+const cert = path.resolve(__dirname, '../', 'config/cert/apiclient_cert.p12')
 
 const paymentConfig = {
   appId: config.shop.appId,

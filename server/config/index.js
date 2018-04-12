@@ -22,6 +22,13 @@ export default {
       useCdnDomain: true
       // region: 'z0' // 华东z0 (华南:z2)
     }
+  },
+
+  shop: {
+    appID: '',
+    mchId: '148',
+    notifyUrl: 'https://',
+    key: 'lf'
   }
 }
 
