@@ -49,6 +49,10 @@ class Services {
     return axios.get(`${baseUrl}/api/products/${id}`)
   }
 
+  getPayments() {
+    return axios.get(`${baseUrl}/admin/payments`)
+  }
+
   fetchUserAndOrders() {
     return axios.get(`http://rap2api.taobao.org/app/mock/4970/GET//api/user`)
   }

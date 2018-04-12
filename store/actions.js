@@ -117,6 +117,12 @@ export default {
     return res
   },
 
+  async fetchPayments({ state }) {
+    let { data } = await Services.getPayments()
+    state.payments = data.data
+    return data
+  },
+
   async fetchUserAndOrders({ state }) {
     const res = await Services.fetchUserAndOrders()
 
