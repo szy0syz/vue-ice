@@ -63,14 +63,14 @@ UserSchema.pre('save', function (next) {
 
 UserSchema.pre('save', function (next) {
   let user = this
-  // 如果密码没变，就跳过。
-  if (user.isModified('password')) return next()
+  // 如果密码"!"没变，就跳过；新建和修改都不会跳过
+  if (!user.isModified('password')) return next()
 
   bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
     if (err) return next(err)
 
     bcrypt.hash(user.password, salt, (error, hash) => {
-      if (err) return next(error)
+      if (error) return next(error)
 
       user.password = hash
 
