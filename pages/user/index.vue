@@ -3,7 +3,7 @@
     .user(v-if='authUser')
       .header
         .header-text {{authUser.nickname}}
-        img(:src='imageCDN + authUser.avatarUrl + "?imageView2/1/format/jpg/q/75/imageslim"')
+        img(:src='authUser.avatarUrl')
       .address
         cell(title='收货地址')
         .user-content {{authUser.address}}
