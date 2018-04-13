@@ -4,7 +4,7 @@
       .swiper(v-swiper:jSwiper='swiperConfig')
         .swiper-wrapper
           .swiper-slide(v-for='item in product.images')
-            img(:src='"http://p5wfod7im.bkt.clouddn.com/" + item')
+            img(:src='"http://p5wfod7im.bkt.clouddn.com/!!!" + item')
         .swiper-pagination.swiper-pagination-bullets
 
       .content

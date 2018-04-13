@@ -26,7 +26,7 @@ export function redirect(ctx, next) {
   const scope = 'snsapi_userinfo'
   const { visit, id } = ctx.query
   const params = id ? `${visit}_${id}` : visit
-  console.log('~~~~~~~~~~controller - redirect - params: ', params)
+  console.log('~~~~~controller - redirect - params: ', params)
   const url = wechat.getAuthorizeURL(scope, redirect, params)
 
   ctx.redirect(url)

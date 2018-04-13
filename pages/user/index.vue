@@ -1,22 +1,22 @@
 <template lang="pug">
   .container
-    .user(v-if='user')
+    .user(v-if='authUser')
       .header
-        .header-text {{user.nickname}}
-        img(:src='imageCDN + user.avatarUrl + "?imageView2/1/format/jpg/q/75/imageslim"')
+        .header-text {{authUser.nickname}}
+        img(:src='imageCDN + authUser.avatarUrl + "?imageView2/1/format/jpg/q/75/imageslim"')
       .address
         cell(title='收货地址')
-        .user-content {{user.address}}
+        .user-content {{authUser.address}}
       .phone
         cell(title='电话')
-        .user-content {{user.phoneNumber}}
+        .user-content {{authUser.phoneNumber}}
       .name
         cell(title='姓名')
-        .user-content {{user.name}}
+        .user-content {{authUser.name}}
 
-      .order(v-if='user.orders && user.orders.length > 0')
+      .order(v-if='authUser.orders && authUser.orders.length > 0')
         cell(title='我的订单')
-        .order-items(v-for='(item, index) in user.orders' :key='index')
+        .order-items(v-for='(item, index) in payments' :key='index')
           img(:src='imageCDN + item.product.images[0] + "?imageView2/1/format/jpg/q/75/imageslim"')
           .order-indtro
             .title {{item.product.title}}
@@ -35,7 +35,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user', 'imageCDN'])
+    ...mapState(['authUser', 'imageCDN'])
   },
   methods: {},
   beforeCreate() {

@@ -27,6 +27,7 @@ export default {
   },
   methods: {
     showProduct(item) {
+      console.log(item)
       this.$router.push({
         path: '/deal',
         query: {
