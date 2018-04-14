@@ -1,9 +1,9 @@
-@import './mixin' 
-@import './color' 
-@import './var' 
+@import './mixin'
+@import './color'
+@import './var'
 
-.container 
-  +border-box 
+.container
+  +border-box
   padding-bottom: $navHeight
 
   .house
@@ -15,13 +15,13 @@
       width: 90%
       font-size: 0
       display: inline-block
-    
-    &:fisrt-child
+
+    &:first-child
       margin-left: $spacing
-    
+
     .house-flag
       width: 100%
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2)
+      box-shadow: 0 1px 2px rgba(0, 0, 0, .2)
       overflow: hidden
 
       img
@@ -38,7 +38,7 @@
         font-size: 1.4em
         color: $grey-700
 
-      .canme
+      .cname
         font-size: 1.9em
         color: $black
 
@@ -58,9 +58,12 @@
     border-top: 1px solid $grey-400
 
   .section
-    padding: $spacing 0
+    padding: 0 0 $spacing
     border-bottom: 1px solid $grey-400
     font-size: 0
+
+    .items:nth-child(2n)
+      margin-left: 5%
 
     .items
       width: 47.5%
@@ -68,17 +71,17 @@
       display: inline-block
       margin-bottom: $spacing
 
-      img // jerryshi add: 20180415-01:49
+      img
         width: 100%
         box-shadow: 0 0 2px rgba(0, 0, 0, .2)
         margin-bottom: $spacing/3
 
       .desc
         +font-dpr(10px)
-        
-        .canme
-          font-size: 1.2em
-          color: $grey-600
+
+        .cname
+          font-size: 1.5em
+          color: $black
 
         .name
           font-size: 1.2em
@@ -95,13 +98,12 @@
   line-height: 2em
   position: relative
 
+
   .city-title
     font-size: 1.9em
-
   .intro
     font-size: 1.6em
     color: $grey-800
-
   .items
     font-size: 1.45em
     color: $grey-700
