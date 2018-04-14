@@ -1,6 +1,6 @@
-@import '~static/sass/mixin' 
-@import '~static/sass/color' 
-@import '~static/sass/var' 
+@import './mixin' 
+@import './color' 
+@import './var' 
 
 .container 
   +border-box 
@@ -67,6 +67,11 @@
       +break-word
       display: inline-block
       margin-bottom: $spacing
+
+      img // jerryshi add: 20180415-01:49
+        width: 100%
+        box-shadow: 0 0 2px rgba(0, 0, 0, .2)
+        margin-bottom: $spacing/3
 
       .desc
         +font-dpr(10px)
