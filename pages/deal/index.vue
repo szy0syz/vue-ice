@@ -4,7 +4,7 @@
       .swiper(v-swiper:jSwiper='swiperConfig')
         .swiper-wrapper
           .swiper-slide(v-for='item in product.images')
-            img(:src='"http://p5wfod7im.bkt.clouddn.com/!!!" + item')
+            img(:src='"http://p5wfod7im.bkt.clouddn.com/" + item')
         .swiper-pagination.swiper-pagination-bullets
 
       .content
@@ -45,7 +45,7 @@
             inputinput(v-model.trim='info.address' type='tel' placeholder='你的收货地址')
         .payment-modal-footer(@click='handlePayment') 确认支付
     transition(name='fade')
-      span.model(v-if='model.visible') {{modal.content}}
+      span.modal(v-if='modal.visible') {{modal.content}}
 </template>
 
 <script>
