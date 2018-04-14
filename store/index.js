@@ -15,7 +15,7 @@ const createStore = () => {
       currentHouse: {},
       currentProduct: [],
       currentCharacter: {},
-      imageCDN: 'http://osmai097y.bkt.clouddn.com/'
+      imageCDN: 'https://fireice.iblack7.com/'
     },
     getters,
     actions,
