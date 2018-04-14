@@ -1,7 +1,7 @@
 <template lang="pug">
   .container
     .house-media
-      img(v-if='house.cname' :src='imageCDN + house.cname + ".png"')
+      img(v-if='house.cname' :src='imageCDN + house.cname')
       .desc
         .words {{house.words}}
         .name {{house.name}}

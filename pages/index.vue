@@ -7,7 +7,7 @@
           .cname {{ item.name }}
           .name {{ item.cname }}
         .house-flag
-          img(:src='imageCDN + item.cname + ".png"')
+          img(:src='imageCDN + item.cname')
     
     .characters
       .title 主要人物
@@ -28,6 +28,7 @@
 </template>
 <script>
 import { mapState } from 'vuex'
+// https://fireice.iblack7.com/Tyrion Lannister/twnvaqnrdpm0z572qya6le56gqwny72v?imageView2/1/w/280/h/440/format/jpg/q/75|imageslim
 // https://fireice.iblack7.com/Tyrion Lannister/twnvaqnrdpm0z572qya6le56gqwny72v?imageView2/1/w/280/h/440/format/jpg/q/75|imageslim
 // https://fireice.iblack7.com/Tyrion Lannister/twnvaqnrdpm0z572qya6le56gqwny72v?imageView2/1/w/280/h/440/format/jpg/q/75|imageslim
 export default {
