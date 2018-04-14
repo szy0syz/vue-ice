@@ -27,7 +27,6 @@ export default {
   },
   methods: {
     showProduct(item) {
-      console.log(item)
       this.$router.push({
         path: '/deal',
         query: {
@@ -40,6 +39,11 @@ export default {
   beforeCreate() {
     let id = this.$route.query.id
     this.$store.dispatch('fetchProducts', id)
+  },
+
+  beforeDestroy() {
+    // 离开前获取当前滚动值
+    console.log('$el.scrollTop: ', this.$el.scrollTop)
   }
 }
 </script>

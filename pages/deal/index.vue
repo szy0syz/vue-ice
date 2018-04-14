@@ -85,7 +85,7 @@ export default {
         '商品和服务的差异',
         '清关服务',
         '物流服务',
-        '需要更多帮助，请联系管路员'
+        '需要更多帮助，请联系客服'
       ],
 
       showInfo: false, // 弹出模态框
@@ -105,7 +105,8 @@ export default {
   },
   computed: {
     ...mapState({
-      product: 'currentProduct'
+      product: 'currentProduct',
+      imageCDN: 'imageCDN'
     })
   },
 
