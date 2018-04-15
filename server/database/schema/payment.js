@@ -8,7 +8,7 @@ const PaymentSchema = new Schema({
     type: ObjectId,
     ref: 'User'
   },
-  product: {
+  product: {        // todo: 这里应该改成数组
     type: ObjectId,
     ref: 'Product'
   },
