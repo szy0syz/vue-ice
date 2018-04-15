@@ -4,6 +4,9 @@ import mongoose from 'mongoose'
 import config from '../config'
 import R from 'ramda'
 
+// loading mogoose "meta" plugins
+mongoose.plugin(require('../database/plugins/meta'))
+
 const models = resolve(__dirname, '../database/schema')
 
 fs

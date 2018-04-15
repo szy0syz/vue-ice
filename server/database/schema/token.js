@@ -19,15 +19,15 @@ const TokenSchema = new mongoose.Schema({
 })
 
 // mongoose的一个中间件，每次往数据库写入前执行这个中间件
-TokenSchema.pre('save', function (next) {
-  if (this.isNew) {
-    this.meta.createdAt = this.meta.updatedAt = Date.now()
-  } else {
-    this.meta.updatedAt = Date.now()
-  }
+// TokenSchema.pre('save', function (next) {
+//   if (this.isNew) {
+//     this.meta.createdAt = this.meta.updatedAt = Date.now()
+//   } else {
+//     this.meta.updatedAt = Date.now()
+//   }
 
-  next()
-})
+//   next()
+// })
 
 // token票据的静态方法，静态方法可以拿到model后直接调用，它属于整个类的~
 TokenSchema.statics = {

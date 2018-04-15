@@ -18,15 +18,15 @@ const TicketSchema = new mongoose.Schema({
 })
 
 // mongoose的一个中间件，每次往数据库写入前执行这个中间件
-TicketSchema.pre('save', function (next) {
-  if (this.isNew) {
-    this.meta.createdAt = this.meta.updatedAt = Date.now()
-  } else {
-    this.meta.updatedAt = Date.now()
-  }
+// TicketSchema.pre('save', function (next) {
+//   if (this.isNew) {
+//     this.meta.createdAt = this.meta.updatedAt = Date.now()
+//   } else {
+//     this.meta.updatedAt = Date.now()
+//   }
 
-  next()
-})
+//   next()
+// })
 
 // ticket票据的静态方法，静态方法可以拿到model后直接调用，它属于整个类的~
 TicketSchema.statics = {

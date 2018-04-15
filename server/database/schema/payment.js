@@ -35,14 +35,14 @@ const PaymentSchema = new Schema({
   }
 })
 
-PaymentSchema.pre('save', function (next) {
-  if (this.isNew) {
-    this.meta.createdAt = this.meta.updatedAt = Date.now()
-  } else {
-    this.meta.updatedAt = Date.now()
-  }
+// PaymentSchema.pre('save', function (next) {
+//   if (this.isNew) {
+//     this.meta.createdAt = this.meta.updatedAt = Date.now()
+//   } else {
+//     this.meta.updatedAt = Date.now()
+//   }
 
-  next()
-})
+//   next()
+// })
 
 mongoose.model('Payment', PaymentSchema)

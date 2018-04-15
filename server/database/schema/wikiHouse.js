@@ -30,15 +30,15 @@ const WikiHouseSchema = new mongoose.Schema({
 })
 
 // mongoose的一个中间件，每次往数据库写入前执行这个中间件
-WikiHouseSchema.pre('save', function (next) {
-  if (this.isNew) {
-    this.meta.createdAt = this.meta.updatedAt = Date.now()
-  } else {
-    this.meta.updatedAt = Date.now()
-  }
+// WikiHouseSchema.pre('save', function (next) {
+//   if (this.isNew) {
+//     this.meta.createdAt = this.meta.updatedAt = Date.now()
+//   } else {
+//     this.meta.updatedAt = Date.now()
+//   }
 
-  next()
-})
+//   next()
+// })
 
 // WikiHouseSchema.statics = {}
 
