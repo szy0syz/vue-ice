@@ -12,7 +12,17 @@ const ProductSchema = new Schema({
       key: String,
       value: String
     }
-  ]
+  ],
+  meta: {
+    createdAt: {
+      type: Date,
+      default: Date.now()
+    },
+    updatedAt: {
+      type: Date,
+      default: Date.now()
+    }
+  }
 })
 
 mongoose.model('Product', ProductSchema)
