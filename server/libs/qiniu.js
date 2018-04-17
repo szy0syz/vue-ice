@@ -9,13 +9,13 @@ import { exec } from 'shelljs'
 
 const mac = new qiniu.auth.digest.Mac(config.qiniu.AK, config.qiniu.SK)
 let options = {
-  scope: config.qiniu.bucket,
+  scope: config.qiniu.bucket
 }
 
 let putPolicy = new qiniu.rs.PutPolicy(options)
 
 const uploadToken = putPolicy.uploadToken(mac)
-console.log("uploadToken:", uploadToken)
+
 // "qiniu": "^7.1.3" // 太新了，装6.1.13
 // 7.1.3 方式
 // let mac = new qiniu.auth.digest.Mac(accessKey, secretKey)
@@ -38,7 +38,7 @@ export const fetchImage = async (url, key) => {
     //   else resolve(ret)
     // })
 
-    const bash = `qshell fetch ${url} ${bucket} ${key}`
+    const bash = `qshell fetch ${url} ${config.qiniu.bucket} ${key}`
     const child = exec(bash, { async: true })
     child.stdout.on('data', data => {
       resolve(data)
