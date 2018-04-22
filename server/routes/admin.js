@@ -5,7 +5,7 @@ import { controller, post, required, get } from '../decorator/router'
 export class AdminController {
   @post('/login')
   @required({ body: ['email', 'password'] })
-  async getHouses(ctx, next) {
+  async login(ctx, next) {
     const { email, password } = ctx.request.body
     const data = await api.admin.login(email, password)
     const { match, user } = data
