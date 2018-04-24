@@ -10,8 +10,7 @@ export default {
       if (!success) throw new Error('不能成功获取服务器签名!')
 
       const wx = window.wx
-      console.log('~~~!!!!!!data:')
-      console.log(data)
+
       wx.config({
         // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
         debug: true,
@@ -31,13 +30,13 @@ export default {
 
       wx.ready(() => {
         // 对微信的按钮进行初始化
-        // this.wechatSetMenu()
-        // this.wechatShare({})
+        this.wechatSetMenu()
+        this.wechatShare({})
       })
 
       wx.error(function (res) {
         // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
-        console.log('~~~yyyy!!!!!!')
+        console.log('~~~验证失败!!!!!!')
         console.log(res)
       })
     }

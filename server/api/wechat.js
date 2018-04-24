@@ -11,7 +11,7 @@ export async function getSignatureAsync(url) {
   const ticketData = await client.fetchTicket(token)
   const ticket = ticketData.ticket
 
-  let params = client.sign(ticket)
+  let params = client.sign(ticket, url)
   params.appId = client.appID
 
   return params
