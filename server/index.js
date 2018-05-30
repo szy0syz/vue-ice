@@ -7,7 +7,7 @@ import { resolve } from 'path'
 
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')
-config.dev = !(process.env === 'production')
+config.dev = !(process.env.NODE_ENV === 'production')
 
 const r = path => resolve(__dirname, path)
 const host = process.env.HOST || '127.0.0.1'
@@ -34,7 +34,7 @@ class Server {
   async start() {
     // Instantiate nuxt.js
     const nuxt = new Nuxt(config)
-
+    this.app.szy = 'jerry_shi'
     // Build in development
     if (config.dev) {
       const builder = new Builder(nuxt)
