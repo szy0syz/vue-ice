@@ -3,6 +3,12 @@ import { parse as queryParse } from 'querystring'
 import * as wechat from '../api/wechat'
 import config from '../config'
 
+import { openidAndSessionKey, WXBizDataCrypt } from '../wechat-lib/mina'
+
+import Product from '../database/schema/product'
+import User from '../database/schema/user'
+import Payment from '../database/schema/payment'
+
 export async function signature(ctx, next) {
   let url = ctx.query.url
 
@@ -32,6 +38,83 @@ export function redirect(ctx, next) {
   ctx.redirect(url)
 }
 
+export async function createOrderAsync(ctx, next) {
+  const ip = ctx.ip.replace('::ffff:', '')
+  const { code, productId, userInfo, name, address, phoneNumber } = ctx.request.body
+  let product
+
+  try {
+    product = await Product.findOne({ _id: productId }).exec()
+
+    if (!product) return (ctx.body = { success: 'false', error: '商品已经下架' })
+  } catch (err) {
+    return (ctx.body = { success: 'false', error: '服务器异常' })
+  }
+
+  try {
+    const mimaUser = await openidAndSessionKey(code)
+    const wxBizDataCrypt = new WXBizDataCrypt(mimaUser.session_key)
+    const decryptData = wxBizDataCrypt.decryptData(userInfo.encryptedData, userInfo.iv)
+
+    let user = await User.findOne({
+      openid: decryptData.openid
+    }).exec()
+
+    if (!user) {
+      let _userInfo = userInfo.userInfo
+
+      user = new User({
+        avatarUrl: _userInfo.avatarUrl,
+        nickname: _userInfo.nickname,
+        openid: [mimaUser.openid],
+        sex: _userInfo.gender,
+        country: _userInfo.country,
+        province: _userInfo.province,
+        city: _userInfo.city
+      })
+
+      await user.save()
+    }
+
+    let _order = {
+      body: product.title,
+      attach: '小程序周边支付',
+      out_trade_no: 'Product' + (new Date()),
+      total_fee: 0.1 * 100,
+      spbill_create_ip: ip,
+      openid: mimaUser.openid,
+      trade_type: 'JSAPI'
+    }
+
+    let order = await getPramasAsync(_order)
+
+    let payment = new Payment({
+      user: user._id,
+      product: product._id,
+      success: 0,
+      name,
+      address,
+      phoneNumber,
+      payType: '小程序',
+      totalFee: product.title
+    })
+
+    await payment.save()
+
+    ctx.body = {
+      order,
+      product,
+      payment,
+      user
+    }
+  } catch (err) {
+    return (ctx.body = {
+      success: 'false',
+      error: err
+    })
+  }
+}
+
 export async function oauth(ctx, next) {
   let url = ctx.query.url
 
@@ -54,5 +137,32 @@ export async function oauth(ctx, next) {
   ctx.body = {
     success: true,
     user
+  }
+}
+
+export async function paymentAsync(ctx, next) {
+  const { body } = ctx.request
+
+  try {
+    let payment = await Payment.findOne({
+      _id: body.payment._id
+    }).exec()
+
+    if (!payment) return (ctx.body = { success: false, error: '订单不存在' })
+
+    if (String(payment.product) !== body.product._id || String(payment.user) !== body.user._id) {
+      return (ctx.body = {
+        success: false,
+        error: '订单错误，请联系网站管理员'
+      })
+    }
+
+    payment.success = 1
+
+    await payment.save()
+
+    ctx.body = { success: true, msg: '支付成功' }
+  } catch (err) {
+    ctx.body = { success: false, error: '支付失败' }
   }
 }

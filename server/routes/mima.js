@@ -1,9 +1,10 @@
 import { controller, get, post, required } from '../decorator/router'
-// import config from '../config'
 
 import { getUserAsync, loginAsync } from '../controllers/user'
 
 import { openidAndSessionKey } from '../wechat-lib/mina'
+
+import { createOrderAsync, paymentAsync } from '../controllers/wechat'
 
 @controller('/mina')
 export class MinaController {
@@ -30,5 +31,16 @@ export class MinaController {
   async user(ctx, next) {
     // 业务控制权交出去
     await getUserAsync(ctx, next)
+  }
+
+  @post('/createOrder')
+  @required({ body: ['code', 'productId', 'userInfo', 'name', 'address', 'phoneNumber'] })
+  async createOrder(ctx, next) {
+    await createOrderAsync(ctx, next)
+  }
+
+  @post('/payment')
+  async payment(ctx, next) {
+    await paymentAsync(ctx, next)
   }
 }
