@@ -23,7 +23,7 @@ const character = {
     }
   },
   async resolve(root, params, options) {
-    const data = await getCharacter()
+    const data = await getCharacter(params.id)
     return data
   }
 }

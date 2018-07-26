@@ -23,7 +23,7 @@ const house = {
     }
   },
   async resolve(root, params, options) {
-    const data = await getHouse()
+    const data = await getHouse(params.id)
     return data
   }
 }
