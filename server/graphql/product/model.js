@@ -2,6 +2,7 @@ import {
   GraphQLID,
   GraphQLString,
   GraphQLList,
+  GraphQLFloat,
   GraphQLObjectType
 } from 'graphql'
 
@@ -12,7 +13,7 @@ export let ProductType = new GraphQLObjectType({
       type: GraphQLID
     },
     price: {
-      type: GraphQLString
+      type: GraphQLFloat
     },
     title: {
       type: GraphQLString

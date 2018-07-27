@@ -17,19 +17,27 @@ export async function getProduct(_id) {
 }
 
 export async function save(product) {
-  console.log('我在api~~保存宝贝前%%%%%')
-  console.log(product)
   product = new Product(product)
   product = await product.save()
-  console.log('我在api~~保存宝贝后%%%%%')
-  console.log(product)
   return product
 }
 
 export async function update(product) {
-  product = await product.save()
+  try {
+    let data = await Product.findOne({_id: product._id}).exec()
+    
+    if (!data) return {} // todo ...
 
-  return product
+    // 不要尝试重新复制不能变属性
+    delete product._id
+
+    data = Object.assign(data, product)
+    data.save()
+
+    return data
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 export async function del(_id) {
