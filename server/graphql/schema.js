@@ -3,7 +3,9 @@ import {
   GraphQLSchema
 } from 'graphql'
 
-import ProducQueries from './product/query'
+import ProductQueries from './product/query'
+import ProductMutations from './product/mutation'
+
 import WikiHouseQueries from './house/query'
 import WikicharacterQueries from './character/query'
 
@@ -13,7 +15,13 @@ export default new GraphQLSchema({
     fields: Object.assign(
       WikicharacterQueries,
       WikiHouseQueries,
-      ProducQueries
+      ProductQueries
+    )
+  }),
+  mutation: new GraphQLObjectType({
+    name: 'Mutations',
+    fields: Object.assign(
+      ProductMutations
     )
   })
 })
