@@ -10,12 +10,9 @@ import {
   ProductType
 } from './model'
 
-import mongoose from 'mongoose'
-const Product = mongoose.model('Product')
-
-import { 
+import {
   save as create,
-  update as update,
+  update,
   del as remove
 } from '../../api/product'
 
@@ -25,7 +22,7 @@ const createProduct = {
   args: {
     price: { type: new GraphQLNonNull(GraphQLFloat) },
     title: { type: new GraphQLNonNull(GraphQLString) },
-    intro: { type: GraphQLString },
+    intro: { type: GraphQLString }
   },
   resolve(root, params, options) {
     return create(params)
@@ -39,7 +36,7 @@ const updateProduct = {
     _id: { type: new GraphQLNonNull(GraphQLString) },
     price: { type: GraphQLFloat },
     title: { type: GraphQLString },
-    intro: { type: GraphQLString },
+    intro: { type: GraphQLString }
   },
   resolve(root, params, options) {
     return update(params)

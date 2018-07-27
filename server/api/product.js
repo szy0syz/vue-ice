@@ -25,14 +25,15 @@ export async function save(product) {
 export async function update(product) {
   try {
     let data = await Product.findOne({_id: product._id}).exec()
-    
+
     if (!data) return {} // todo ...
 
     // 不要尝试重新复制不能变属性
     delete product._id
 
     data = Object.assign(data, product)
-    data.save()
+    console.log(data)
+    data = await data.save()
 
     return data
   } catch (err) {
