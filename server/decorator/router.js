@@ -51,7 +51,7 @@ export const router = conf => (target, key, desc) => {
   }, target[key])
 }
 
-export const controller = path => target => target.prototype[symbolPrefix] = path
+export const controller = path => target => (target.prototype[symbolPrefix] = path)
 
 export const get = path => router({ method: 'get', path: path })
 
