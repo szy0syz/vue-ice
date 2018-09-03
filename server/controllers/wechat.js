@@ -52,8 +52,8 @@ export async function createOrderAsync(ctx, next) {
   }
 
   try {
-    const mimaUser = await openidAndSessionKey(code)
-    const wxBizDataCrypt = new WXBizDataCrypt(mimaUser.session_key)
+    const minaUser = await openidAndSessionKey(code)
+    const wxBizDataCrypt = new WXBizDataCrypt(minaUser.session_key)
     const decryptData = wxBizDataCrypt.decryptData(userInfo.encryptedData, userInfo.iv)
 
     let user = await User.findOne({
@@ -66,7 +66,7 @@ export async function createOrderAsync(ctx, next) {
       user = new User({
         avatarUrl: _userInfo.avatarUrl,
         nickname: _userInfo.nickname,
-        openid: [mimaUser.openid],
+        openid: [minaUser.openid],
         sex: _userInfo.gender,
         country: _userInfo.country,
         province: _userInfo.province,
@@ -82,10 +82,11 @@ export async function createOrderAsync(ctx, next) {
       out_trade_no: 'Product' + (new Date()),
       total_fee: 0.1 * 100,
       spbill_create_ip: ip,
-      openid: mimaUser.openid,
+      openid: minaUser.openid,
       trade_type: 'JSAPI'
     }
 
+    // TODO: fix bug
     let order = await getPramasAsync(_order)
 
     let payment = new Payment({

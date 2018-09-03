@@ -19,7 +19,6 @@
     "apollo-server-koa": "^1.4.0",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
-    "bcrypt": "^1.0.3",
     "cheerio": "^1.0.0-rc.2",
     "cross-env": "^5.0.1",
     "ejs": "^2.5.7",
@@ -52,7 +51,8 @@
     "vuex": "^3.0.1",
     "wechat-pay": "^0.3.2",
     "xml2js": "^0.4.19",
-    "xss": "^0.3.7"
+    "xss": "^0.3.7",
+    "bcrypt": "^3.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
